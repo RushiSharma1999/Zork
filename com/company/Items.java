@@ -17,7 +17,7 @@ interface Items {
 
 	public String getName();				// returns the name of an item
 	public String getDescription();			// returns the description of an item
-
+	// ^^ unsure about these bois
 	public void useItem();					// each class will provide functionality
 	public boolean canPickUp();  			// returns true/false if the player can pick up this item
 }
@@ -44,25 +44,14 @@ class Weapons implements Items {
 		this.pickUp = pickUp;
 	}
 
-	public void setName(String name){ 					// setter function
-		this.name = name;
-	}
+	public void setName(String name){ this.name = name;} // setter function
+	public String getName(){return name;}				 // getter function
 
-	public String getName(){							// getter function
-		return name;	
-	}
+	public void setDescription(String description){this.description = description;} // setter function
+	public String getDescription(){return description;} // getter function
 
-	public void setDescription(String description){	 	// setter function
-		this.description = description;
-	}
-
-	public String getDescription(){	 					// getter function
-		return description;
-	}
-
-	public boolean canPickUp(){							// setter function
-		return pickUp;			
-	}
+	public boolean setPickUp(boolean pickUp){this.pickUp = pickUp;} // setter function
+	public boolean canPickUp(){return pickUp;}			// getter function
 
 	public void useItem(){								// Weapon's useItem() will attack and do damage to a valid target
 		System.out.println("You ATTACK with " + name);	
@@ -71,12 +60,12 @@ class Weapons implements Items {
 		// Check if valid target
 		// If target is a Character, lower health/do damage
 		// else the attack does nothing? possible implement unique interactions ie: a axe breaks a door
-
+		
 	}
 
-	// public String toString(){
-		
-	// }
+	public String toString(){
+		System.out.println("A " + name + ". " + description +". It does " + damage + " damage.");
+	}
 
 	
 }
