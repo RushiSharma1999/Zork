@@ -66,6 +66,9 @@ class Weapons implements Items {
 	public void setDescription(String description){this.description = description;} // setter function
 	public String getDescription(){return description;} // getter function
 
+	public void setDamage(int damage){this.damage = damage;}
+	public int getDamage(){return damage;}
+
 	public void setPickUp(boolean pickUp){this.pickUp = pickUp;} // setter function
 	public boolean canPickUp(){										// getter function
 		if(pickUp){
@@ -86,7 +89,8 @@ class Weapons implements Items {
 	}
 
 	public String toString(){  // toString function
-		System.out.println("A " + name + ". " + description +". It does " + damage + " damage.");
+		String temp = ("A " + name + ". " + description +". Damage: " + damage);
+		return temp;
 	}
 
 	
@@ -96,7 +100,7 @@ class Weapons implements Items {
 //=====================================================================
 // Treasure class
 //=====================================================================
- class Treasure implements Item{
+ class Treasures implements Items{
 	String name;
  	String description;
  	boolean pickUp;
@@ -104,19 +108,19 @@ class Weapons implements Items {
 
 
  	// Start of Telescoping Constructors
- 	public Treasure(String name){
+ 	public Treasures(String name){
  		this(name,"NO DESCRIPTION",false,0);
  	}
 
- 	public Treasure(String name,String description){
+ 	public Treasures(String name,String description){
  		this(name,description,false,0);
  	}
 
- 	public Treasure(String name,String description, boolean pickUp){
+ 	public Treasures(String name,String description, boolean pickUp){
  		this(name,description,pickUp,0);
  	}
 
- 	public Treasure(String name, String description, boolean pickUp, int value){
+ 	public Treasures(String name, String description, boolean pickUp, int value){
  		this.name = name;
  		this.description = description;
  		this.pickUp = pickUp;
@@ -149,7 +153,8 @@ class Weapons implements Items {
 	}
 
 	public String toString(){		// toString method
-		System.out.println("A " + name + ". "  + description + ". It's value is " + value + ".");
+		String temp = ("A " + name + ". "  + description + ". Value: " + value);
+		return temp;
 	}
 
  }
