@@ -66,7 +66,7 @@ class Weapons implements Items {
 	public void setDescription(String description){this.description = description;} // setter function
 	public String getDescription(){return description;} // getter function
 
-	public boolean setPickUp(boolean pickUp){this.pickUp = pickUp;} // setter function
+	public void setPickUp(boolean pickUp){this.pickUp = pickUp;} // setter function
 	public boolean canPickUp(){										// getter function
 		if(pickUp){
 			System.out.println("You PICK UP " + name );
@@ -93,3 +93,63 @@ class Weapons implements Items {
 }
 
 
+//=====================================================================
+// Treasure class
+//=====================================================================
+ class Treasure implements Item{
+	String name;
+ 	String description;
+ 	boolean pickUp;
+ 	int value;
+
+
+ 	// Start of Telescoping Constructors
+ 	public Treasure(String name){
+ 		this(name,"NO DESCRIPTION",false,0);
+ 	}
+
+ 	public Treasure(String name,String description){
+ 		this(name,description,false,0);
+ 	}
+
+ 	public Treasure(String name,String description, boolean pickUp){
+ 		this(name,description,pickUp,0);
+ 	}
+
+ 	public Treasure(String name, String description, boolean pickUp, int value){
+ 		this.name = name;
+ 		this.description = description;
+ 		this.pickUp = pickUp;
+ 		this.value = value;
+ 	}
+	// End of Telescoping Constructors
+
+ 	public void setName(String name){this.name = name;}	// setter function
+ 	public String getName(){return name;}				// getter function
+
+ 	public void setDescription(String description){this.description = description;}	// setter function
+ 	public String getDescription(){return description;}								// getter function
+
+ 	public void setValue(int value){this.value = value;}	// setter function
+ 	public int getValue(){return value;}					// getter function
+
+ 	public void setPickUp(boolean pickUp){this.pickUp = pickUp;} // setter function
+	public boolean canPickUp(){										// getter function
+		if(pickUp){
+			System.out.println("You PICK UP " + name );
+		}
+		else{
+			System.out.println("You can NOT PICK UP " + name);
+		}
+		return pickUp;
+	}
+
+	public void useItem(){
+		System.out.println("You play with the " + name + " in your hands.");	// treasure does not do anything besides increase the players score at the end 
+	}
+
+	public String toString(){		// toString method
+		System.out.println("A " + name + ". "  + description + ". It's value is " + value + ".");
+	}
+
+ }
