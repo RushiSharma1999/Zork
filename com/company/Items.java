@@ -18,7 +18,7 @@ interface Items {
 	// public String getName();				// returns the name of an item
 	// public String getDescription();		// returns the description of an item
 
-	// ^^ unsure about these bois, like i dont know if it should be part of the interface
+	// ^^Removed from the interface^^
 
 	public void useItem();					// each class will provide functionality
 	public boolean canPickUp();  			// returns true/false if the player can pick up this item
@@ -36,7 +36,7 @@ class Weapons implements Items {
 
 	// Start of Telescoping Constructors
 	public Weapons(){				
-		this("UNKNOWN NAME","NO DESCRIPTION", 0, false);		
+		this("NO NAME","NO DESCRIPTION", 0, false);		
 	}
 
 	public Weapons(String name){
@@ -64,12 +64,12 @@ class Weapons implements Items {
 	public String getName(){return name;}				 // getter function
 
 	public void setDescription(String description){this.description = description;} // setter function
-	public String getDescription(){return description;} // getter function
+	public String getDescription(){return description;} 							// getter function
 
 	public void setDamage(int damage){this.damage = damage;}
 	public int getDamage(){return damage;}
 
-	public void setPickUp(boolean pickUp){this.pickUp = pickUp;} // setter function
+	public void setPickUp(boolean pickUp){this.pickUp = pickUp;} 	// setter function
 	public boolean canPickUp(){										// getter function
 		if(pickUp){
 			System.out.println("You PICK UP " + name );
@@ -82,9 +82,11 @@ class Weapons implements Items {
 
 	public void useItem(){								// Weapon's useItem() will attack and do damage to a valid target
 		System.out.println("You ATTACK with " + name);	
+		// **********************************************************************************************
 		// Check if valid target
 		// If target is a Character, lower health/do damage
 		// else the attack does nothing? possible implement unique interactions ie: a axe breaks a door
+		// **********************************************************************************************
 		System.out.println("You did " + damage + " damage");	
 	}
 
@@ -153,7 +155,10 @@ class Weapons implements Items {
 	}
 
 	public void useItem(){
-		System.out.println("You play with the " + name + " in your hands.");	// treasure does not do anything besides increase the players score at the end 
+		System.out.println("You play with the " + name + " in your hands.");	
+		// ***************************************************************************
+		// treasure does not do anything besides increase the players score at the end 
+		// ***************************************************************************
 	}
 
 	public String toString(){		// toString method
@@ -164,9 +169,9 @@ class Weapons implements Items {
  }
 
 //=====================================================================
-// Consumable class
+// Consumables class
 //=====================================================================
-class Consumable implements Items{
+class Consumables implements Items{
 	String name;
 	String description;
 	boolean pickUp;
@@ -174,23 +179,23 @@ class Consumable implements Items{
 
 
  	// Start of Telescoping Constructors
-	public Consumable(){
+	public Consumables(){
 		this("NO NAME","NO DESCRIPTION",false,0);
 	}
 
-	public Consumable(String name){
+	public Consumables(String name){
 		this(name,"NO DESCRIPTION", false,0);
 	}
 
-	public Consumable(String name,String description){
+	public Consumables(String name,String description){
 		this(name,description,false,0);
 	}
 
-	public Consumable(String name,String description, boolean pickUp){
+	public Consumables(String name,String description, boolean pickUp){
 		this(name,description,pickUp,0);
 	}
 
-	public Consumable(String name, String description, boolean pickUp, int value){
+	public Consumables(String name, String description, boolean pickUp, int value){
 		this.name = name;
 		this.description = description;
 		this.pickUp = pickUp;
@@ -224,13 +229,85 @@ class Consumable implements Items{
 
 	public void useItem(){
 		System.out.println("You use " + name + ". It restores " + value + " health.");
-		//
+		// ***************************************
 		// Need to implement the healing aspect!
-		//
+		// ***************************************
 	}
 
-	public String toString(){
+	public String toString(){	// toString unction
 		String temp = ("A " + name + ". " + description + ". Healing: " + value);
+		return temp;
+	}
+
+}
+
+//=====================================================================
+// NonConsumable class
+//=====================================================================
+class NonConsumables implements Items{
+	String name;
+	String description;
+	boolean pickUp;
+	String whenUsed;	// unique for each item, ex: Ball, when used,"You bounce the ball. It makes you happy."
+
+ 	// Start of Telescoping Constructors
+	public NonConsumables(){
+		this("NO NAME","NO DESCRIPTION",false,"Nothing happened");
+	}
+
+	public NonConsumables(String name){
+		this(name,"NO DESCRIPTION",false,"Nothing happened");
+	}
+
+	public NonConsumables(String name, String description){
+		this(name,description,false,"Nothing happened");
+	}
+
+	public NonConsumables(String name, String description, boolean pickUp){
+		this(name,description,pickUp,"Nothing happened");
+	}
+
+	public NonConsumables(String name, String description, boolean pickUp, String whenUsed){
+		this.name = name;
+		this.description = description;
+		this.pickUp = pickUp;
+		this.whenUsed = whenUsed;
+	}
+	// End of Telescoping Constructors
+
+	public void setName(String name){this.name = name;}	// setter function
+ 	public String getName(){return name;}				// getter function
+
+ 	public void setDescription(String description){this.description = description;}	// setter function
+ 	public String getDescription(){return description;}								// getter function
+
+ 	public void setPickUp(boolean pickUp){this.pickUp = pickUp;} // setter function
+	public boolean canPickUp(){									 // getter function
+		if(pickUp){
+			System.out.println("You PICK UP " + name );
+		}
+		else{
+			System.out.println("You can NOT PICK UP " + name);
+		}
+		return pickUp;
+	}
+
+	public void setWhenUsed(String whenUsed){	// setter function
+		this.whenUsed = whenUsed;
+	}
+	public String getWhenUsed(){				// getter function
+		return whenUsed;
+	}
+
+	public void useItem(){
+		System.out.println("You use " + name + ". " + whenUsed); 
+		// **********************************************************************************
+		// Unsure if we should expand this? or allow using NonConsumables to do anything else 
+		// **********************************************************************************
+	}
+
+	public String toString(){	// toString function
+		String temp = ("A " + name + ". " + description + ".");
 		return temp;
 	}
 
