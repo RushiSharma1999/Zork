@@ -158,3 +158,43 @@ class Weapons implements Items {
 	}
 
  }
+
+//=====================================================================
+// Consumable class
+//=====================================================================
+class Consumable implements Items{
+	String name;
+	String description;
+	boolean pickUp;
+	int value;
+
+
+ 	// Start of Telescoping Constructors
+	public Consumable(){
+		this("NO NAME","NO DESCRIPTION",false,0);
+	}
+
+	public Consumable(String name){
+		this(name,"NO DESCRIPTION", false,0);
+	}
+
+	public Consumable(String name,String description){
+		this(name,description,false,0);
+	}
+
+	public Consumable(String name,String description, boolean pickUp){
+		this(name,description,pickUp,0);
+	}
+
+	public Consumable(String name, String description, boolean pickUp, int value){
+		this.name = name;
+		this.description = description;
+		this.pickUp = pickUp;
+		this.value = value;
+	}
+	// End of Telescoping Constructors
+
+	public void setName(String name){this.name = name;}	// setter function
+ 	public String getName(){return name;}				// getter function
+
+}
