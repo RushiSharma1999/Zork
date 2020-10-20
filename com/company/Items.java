@@ -108,6 +108,10 @@ class Weapons implements Items {
 
 
  	// Start of Telescoping Constructors
+ 	public Treasures(){
+ 		this("NO NAME","NO DESCRIPTION",false,0);
+ 	}
+
  	public Treasures(String name){
  		this(name,"NO DESCRIPTION",false,0);
  	}
@@ -138,7 +142,7 @@ class Weapons implements Items {
  	public int getValue(){return value;}					// getter function
 
  	public void setPickUp(boolean pickUp){this.pickUp = pickUp;} // setter function
-	public boolean canPickUp(){										// getter function
+	public boolean canPickUp(){									 // getter function
 		if(pickUp){
 			System.out.println("You PICK UP " + name );
 		}
@@ -166,7 +170,7 @@ class Consumable implements Items{
 	String name;
 	String description;
 	boolean pickUp;
-	int value;
+	int value;				// amount of health it restores 
 
 
  	// Start of Telescoping Constructors
@@ -196,5 +200,38 @@ class Consumable implements Items{
 
 	public void setName(String name){this.name = name;}	// setter function
  	public String getName(){return name;}				// getter function
+
+ 	public void setDescription(String description){this.description = description;}	// setter function
+ 	public String getDescription(){return description;}								// getter function
+
+ 	public void setPickUp(boolean pickUp){this.pickUp = pickUp;} // setter function
+	public boolean canPickUp(){									 // getter function
+		if(pickUp){
+			System.out.println("You PICK UP " + name );
+		}
+		else{
+			System.out.println("You can NOT PICK UP " + name);
+		}
+		return pickUp;
+	}
+
+	public void setValue(int value){	// setter function
+		this.value = value;
+	}
+	public int getValue(){				// getter function 
+		return value;
+	}
+
+	public void useItem(){
+		System.out.println("You use " + name + ". It restores " + value + " health.");
+		//
+		// Need to implement the healing aspect!
+		//
+	}
+
+	public String toString(){
+		String temp = ("A " + name + ". " + description + ". Healing: " + value);
+		return temp;
+	}
 
 }
