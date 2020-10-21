@@ -300,7 +300,7 @@ class NonConsumables implements Items{
 	}
 
 	public void useItem(){
-		System.out.println("You use " + name + ". " + whenUsed); 
+		System.out.println("You use " + name + ". " + whenUsed + "."); 
 		// **********************************************************************************
 		// Unsure if we should expand this? or allow using NonConsumables to do anything else 
 		// **********************************************************************************

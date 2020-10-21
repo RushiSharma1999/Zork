@@ -20,24 +20,25 @@ public class Main{
 		//
 		
 		Weapons sword1 = new Weapons("Wood sword","A flimsy wooden sword",5,true);
-		Treasures coin = new Treasures("Gold coin","A single gold coin with a skull on one side",true,5);
-		Weapons sword2 = new Weapons();
+		Treasures coin = new Treasures("Gold coin","A single gold coin with a skull on one side",true,2);
+		Consumables waterJug = new Consumables("Water jug","A portable jug that has some water in it",true,4);
+		NonConsumables ball = new NonConsumables("Bouncy ball","A small ball that has a nice bounce to it",true,"It makes you happy");
 
 		System.out.println(sword1);
 		sword1.canPickUp();
-
-		sword1.setName("Bundle of sticks");
-		sword1.setDescription("A bunch of sticks varrying in size. Seemingly held together by a thin string");
-		sword1.setDamage(1);
-		sword1.setPickUp(false);
-
-		System.out.println("\n" + sword1);
-		sword1.canPickUp();
-
+		sword1.useItem();
 
 		System.out.println("\n" + coin);
+		coin.useItem();
 
-		System.out.println("\n" + sword2);
+		System.out.println("\n" + waterJug);
+		waterJug.useItem();
+
+		System.out.println("\n" + ball);
+		ball.useItem();
+
+		
+		
 
 	}
 }
