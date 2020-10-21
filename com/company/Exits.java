@@ -6,15 +6,42 @@
 //	DUE: 			October 30, 2020
 //
 
+package com.company;
+import com.company*;
 
-interface Exits{
-	// all exits have a direction
+// //=====================================================================
+// // Exits interface
+// //=====================================================================
+// interface Exits{
+// 	// all exits have a direction
 
-	enum Direction {
-		NORTH, SOUTH, EAST, WEST;
-	}
+// 	enum Direction {
+// 		NORTH, SOUTH, EAST, WEST;
+// 	}
 
-	int getDirection(); // returns the enum value
+// 	void getDirection(); // prints out the direction
 
-	boolean isOpen(); // an exit can be locked or open. if locked, the player can not enter
+// 	boolean isOpen();	 // an exit can be locked or open. if locked, the player can not enter
+// }
+
+// //=====================================================================
+// // Door class
+// //=====================================================================
+// class Door implements Exits{
+// 	boolean locked;
+// 	Direction myDirection;
+
+// 	// Start of Telescoping Constructors
+// 	public Door(boolean locked, Direction myDirection){
+// 		this.locked = locked;
+// 	}
+// }
+
+//=====================================================================
+// Room class
+//=====================================================================
+class Room{
+	String description;
+	Vector<Items> vItems = new Vector<Items>(10);
+	
 }

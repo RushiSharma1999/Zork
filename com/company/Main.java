@@ -6,7 +6,7 @@
 //	DUE: 			October 30, 2020
 //
 
-package com.company; // Main is part of the com.company package
+// package com.company; // Main is part of the com.company package?
 
 import com.company.*;	// importing everything in the com.company package
 
