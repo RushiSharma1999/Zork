@@ -9,6 +9,10 @@
 package com.company;
 import com.company*;
 
+enum Direction{
+	NORTH, SOUTH, EAST, WEST;
+}
+
 // //=====================================================================
 // // Exits interface
 // //=====================================================================
@@ -41,7 +45,79 @@ import com.company*;
 // Room class
 //=====================================================================
 class Room{
-	String description;
-	Vector<Items> vItems = new Vector<Items>(10);
-	
+	String name;					 				 // ex: room 1, monster room
+	String description;								 // ex: A dark and spacious room. A passage leads to the west.
+	Vector<Items> vItems = new Vector<Items>();	 // Some items that are in the room
+	boolean canEnter; // if true, the player can enter and leave freely, else, fulfill some condition or the room doesn't exist
+
+	Room *nRoom;
+	Room *sRoom;		// the rooms next to this room
+	Room *eRoom;
+	Room *wRoom;
+
+	// Start of Telescoping Constructors
+	public Room(){
+		this("No name",);
+	}
+
+	public Room(String name){
+		this(name,"No description");
+	}
+
+	public Room(String name, String description){
+		this(name,description,false);
+	}
+
+	public Room(String name, String description, boolean canEnter){
+		this.name = name;
+		this.description = description;
+		this.canEnter = canEnter;
+	}
+	// End of Telescoping Constructors
+
+	public void setName(String name){		// setter function
+		this.name = name;
+	}
+	public String getName(){				// getter function
+		return name;
+	}
+
+	public void setDescription(String description){	// setter function
+		this.description = description;
+	}
+	public String getDescription(){					// getter function
+		return description;
+	}
+
+	public void setCanEnter(boolean canEnter){		// setter function
+		this.canEnter = canEnter;
+	}
+	public boolean getCanEnter(){					// getter function
+		return canEnter;
+	}
+
+	public String toString(){
+		String temp = ("The " + name + ". " + description + ".");
+		return temp;
+	}
+
+
+	// Room(Room b){
+	// 	name = b.getName();
+	// 	description = b.getDescription();
+	// 	canEnter = b.getCanEnter();
+	// 	// **** NEED TO COPY OVER THE ITEMS TOO **** 
+	// }
+
+
+	public void connectRoom(Room otherRoom, Direction d){
+
+		switch(d){
+			case NORTH:
+			nRoom = otherRoom;
+			otherRoom.connectRoom(this, Direction b = SOUTH);
+
+
+		}
+	}
 }

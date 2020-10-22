@@ -37,19 +37,19 @@ class Weapons implements Items {
 
 	// Start of Telescoping Constructors
 	public Weapons(){				
-		this("NO NAME","NO DESCRIPTION", 0, false);		
+		this("NO NAME");		
 	}
 
 	public Weapons(String name){
-		this(name,"NO DESCRIPTION",0,false);
+		this(name,"NO DESCRIPTION");
 	}
 
 	public Weapons(String name, String description){
-		this(name,description,0,false);
+		this(name,description,0);
 	}
 
 	public Weapons(String name, String description, int damage){
-		this(name,description,damage, false);
+		this(name,description,damage,false);
 	}
 
 	public Weapons(String name, String description, int damage, boolean pickUp){
@@ -112,15 +112,15 @@ class Weapons implements Items {
 
  	// Start of Telescoping Constructors
  	public Treasures(){
- 		this("NO NAME","NO DESCRIPTION",false,0);
+ 		this("NO NAME");
  	}
 
  	public Treasures(String name){
- 		this(name,"NO DESCRIPTION",false,0);
+ 		this(name,"NO DESCRIPTION");
  	}
 
  	public Treasures(String name,String description){
- 		this(name,description,false,0);
+ 		this(name,description,false);
  	}
 
  	public Treasures(String name,String description, boolean pickUp){
@@ -181,15 +181,15 @@ class Consumables implements Items{
 
  	// Start of Telescoping Constructors
 	public Consumables(){
-		this("NO NAME","NO DESCRIPTION",false,0);
+		this("NO NAME");
 	}
 
 	public Consumables(String name){
-		this(name,"NO DESCRIPTION", false,0);
+		this(name,"NO DESCRIPTION");
 	}
 
 	public Consumables(String name,String description){
-		this(name,description,false,0);
+		this(name,description,false);
 	}
 
 	public Consumables(String name,String description, boolean pickUp){
@@ -253,15 +253,15 @@ class NonConsumables implements Items{
 
  	// Start of Telescoping Constructors
 	public NonConsumables(){
-		this("NO NAME","NO DESCRIPTION",false,"Nothing happened");
+		this("NO NAME");
 	}
 
 	public NonConsumables(String name){
-		this(name,"NO DESCRIPTION",false,"Nothing happened");
+		this(name,"NO DESCRIPTION");
 	}
 
 	public NonConsumables(String name, String description){
-		this(name,description,false,"Nothing happened");
+		this(name,description,false);
 	}
 
 	public NonConsumables(String name, String description, boolean pickUp){
