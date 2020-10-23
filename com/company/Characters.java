@@ -9,6 +9,7 @@
 package com.company;
 import com.company*;
 
+
 //=====================================================================
 // Characters class
 //=====================================================================
@@ -16,6 +17,7 @@ class Characters{
 	String name;
 	String description;
 	final int SIZE = 10;
+	int health;
 	ArrayList<Items> aItems = new ArrayList<Items>(SIZE);
 
 	// Start of Telescoping Constructors
@@ -28,8 +30,12 @@ class Characters{
 	}
 
 	public Character(String name, String description){
+		this(name,description,0);
+	}
+	public Character(String name,String description, int health){
 		this.name = name;
 		this.description = description;
+		this.health = health;
 		// not sure if i should initialize the aItems array here
 	}
 	// End of Telescoping Constructors
@@ -46,6 +52,13 @@ class Characters{
 	}
 	public String getDescription(){					// getter function
 		return description;
+	}
+
+	public void setHealth(int health){	// setter function
+		this.health = health;
+	}
+	public int getHealth(){				// getter function
+		return health;
 	}
 
 	// ***************************************************
@@ -65,5 +78,22 @@ class Characters{
 		}
 
 	}
+
+	public void getInventory(){		// prints out the player's inventory
+	int count = 0;
+		System.out.println("Inventory:");
+		for(Item someItem: aItems){
+			System.out.println("[" + count + "]" + " " + someItem.getName());
+			count++;
+		}
+	}
+
+	// public void useItem(){	
+
+	// 	this.getInventory();		// prints out the player's inventory, the player must decide which item to use
+
+	// 	System.out.println("Which item do you want to use?\n>")
+
+	// }
 
 }
