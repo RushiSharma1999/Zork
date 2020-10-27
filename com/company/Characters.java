@@ -7,36 +7,38 @@
 //
 
 package com.company;
-import com.company*;
+import com.company.Items;
+import java.util.ArrayList;
 
 
 //=====================================================================
 // Characters class
 //=====================================================================
 class Characters{
-	String name;
-	String description;
-	final int SIZE = 10;
-	int health;
-	ArrayList<Items> aItems = new ArrayList<Items>(SIZE);
+	private String name;
+	private String description;
+	private final int SIZE = 10;
+	private int MAX_HEALTH;
+	private int health;
+	private ArrayList<Items> aItems = new ArrayList<Items>(SIZE);
 
 	// Start of Telescoping Constructors
-	public Character(){
+	public Characters(){
 		this("No name");
 	}
 
-	public Character(String name){
+	public Characters(String name){
 		this(name,"No description");
 	}
 
-	public Character(String name, String description){
+	public Characters(String name, String description){
 		this(name,description,0);
 	}
-	public Character(String name,String description, int health){
+	public Characters(String name,String description, int health){
 		this.name = name;
 		this.description = description;
 		this.health = health;
-		// not sure if i should initialize the aItems array here
+		MAX_HEALTH = health;
 	}
 	// End of Telescoping Constructors
 
@@ -54,17 +56,21 @@ class Characters{
 		return description;
 	}
 
-	public void setHealth(int health){	// setter function
-		this.health = health;
+	public void setHealth(int health){	// setter function, ** you cannot change the max health of a character after creating them **
+		this.health = health;			// this function is used for when the character takes damage
 	}
 	public int getHealth(){				// getter function
 		return health;
 	}
 
+	public int getMAX_HEALTH(){			// getter function, returns the MAX_HEALTH value for this character
+		return MAX_HEALTH;
+	}
+
 	// ***************************************************
 	// WE CAN ONLY DO THIS IF THE ITEM CAN BE PICKED UP 
 	// ***************************************************
-	public void pickUp(Item someItem){ 
+	public void pickUp(Items someItem){ 
 		if(aItems.isEmpty())	// if the array is empty, add an item
 		{
 			aItems.add(someItem);

@@ -8,18 +8,13 @@
 
 package com.company;
 
-import com.company*;
+import com.company.Characters;
 
 
 //=====================================================================
 // Item interface
 //=====================================================================
 interface Items {
-
-	// public String getName();				// returns the name of an item
-	// public String getDescription();		// returns the description of an item
-
-	// ^^Removed from the interface^^
 
 	public void useItem();					// each class will provide functionality
 	public boolean canPickUp();  			// returns true/false if the player can pick up this item
@@ -29,10 +24,10 @@ interface Items {
 // Weapon class
 //=====================================================================
 class Weapons implements Items {
-	String name;
-	String description;
-	int damage;						
-	boolean pickUp;					
+	private String name;
+	private String description;
+	private int damage;						
+	private boolean pickUp;					
 
 
 	// Start of Telescoping Constructors
@@ -73,22 +68,40 @@ class Weapons implements Items {
 	public void setPickUp(boolean pickUp){this.pickUp = pickUp;} 	// setter function
 	public boolean canPickUp(){										// getter function
 		if(pickUp){
-			System.out.println("You PICK UP " + name );
+			System.out.println("PICK UP " + name );
 		}
 		else{
-			System.out.println("You can NOT PICK UP " + name);
+			System.out.println("Can NOT PICK UP " + name);
 		}
 		return pickUp;
 	}			
 
-	public void useItem(){								// Weapon's useItem() will attack and do damage to a valid target
-		System.out.println("You ATTACK with " + name);	
-		// **********************************************************************************************
-		// Check if valid target
-		// If target is a Character, lower health/do damage
-		// else the attack does nothing? possible implement unique interactions ie: a axe breaks a door
-		// **********************************************************************************************
-		System.out.println("You did " + damage + " damage");	
+	public void useItem(){				// Weapon's useItem() will attack and do damage to a valid target, this useItem didnt supply a target
+		System.out.println("ATTACK with " + name);
+		System.out.println("Nothing happened...");	
+		
+	}
+
+	// Overloaded useItem()				
+	public void useItem(Character target){	// attacking a specified Character
+		System.out.println("ATTACK " + target.getName() + " with " + name);
+
+
+		int newHealth = (target.getHealth() - this.getDamage());
+		target.setHealth(newHealth); 							// changes the Character's health
+
+		if(target.getHealth() <= 0)
+		{
+			System.out.println(target.getName() + " was killed");
+			target.setHealth(0);
+			// **********************************************************************
+			// we have to delete or remove the target from the room after its killed?
+			// **********************************************************************
+		}
+		else{
+			System.out.println(this.getDamage() + " damage done");
+		}
+		
 	}
 
 	public String toString(){  // toString function
@@ -104,10 +117,10 @@ class Weapons implements Items {
 // Treasure class
 //=====================================================================
  class Treasures implements Items{
-	String name;
- 	String description;
- 	boolean pickUp;
- 	int value;
+	private String name;
+ 	private String description;
+ 	private boolean pickUp;
+ 	private int value;
 
 
  	// Start of Telescoping Constructors
@@ -147,16 +160,16 @@ class Weapons implements Items {
  	public void setPickUp(boolean pickUp){this.pickUp = pickUp;} // setter function
 	public boolean canPickUp(){									 // getter function
 		if(pickUp){
-			System.out.println("You PICK UP " + name );
+			System.out.println("PICK UP " + name );
 		}
 		else{
-			System.out.println("You can NOT PICK UP " + name);
+			System.out.println("Can NOT PICK UP " + name);
 		}
 		return pickUp;
 	}
 
 	public void useItem(){
-		System.out.println("You play with the " + name + " in your hands.");	
+		System.out.println("Playing with the " + name );	
 		// ***************************************************************************
 		// treasure does not do anything besides increase the players score at the end 
 		// ***************************************************************************
@@ -173,10 +186,10 @@ class Weapons implements Items {
 // Consumables class
 //=====================================================================
 class Consumables implements Items{
-	String name;
-	String description;
-	boolean pickUp;
-	int value;				// amount of health it restores 
+	private String name;
+	private String description;
+	private boolean pickUp;
+	private int value;				// amount of health it restores 
 
 
  	// Start of Telescoping Constructors
@@ -213,10 +226,10 @@ class Consumables implements Items{
  	public void setPickUp(boolean pickUp){this.pickUp = pickUp;} // setter function
 	public boolean canPickUp(){									 // getter function
 		if(pickUp){
-			System.out.println("You PICK UP " + name );
+			System.out.println("PICK UP " + name );
 		}
 		else{
-			System.out.println("You can NOT PICK UP " + name);
+			System.out.println("Can NOT PICK UP " + name);
 		}
 		return pickUp;
 	}
@@ -228,11 +241,15 @@ class Consumables implements Items{
 		return value;
 	}
 
-	public void useItem(){
-		System.out.println("You use " + name + ". It restores " + value + " health.");
-		// ***************************************
-		// Need to implement the healing aspect!
-		// ***************************************
+	public void useItem(){				// if we do not provide a target/character to provide healing to
+		System.out.println("Used " + getName() + ".");
+		System.out.println("Nothing happened...");
+	}
+
+	public void useItem(Character target){ // the target in this case is the Character that used the item
+		System.out.println("Used " + getName() + "."); //" It restores " + this.getValue() + " health.");
+
+		int newHealth = target.getHealth() + getValue(); 
 	}
 
 	public String toString(){	// toString unction
@@ -246,10 +263,10 @@ class Consumables implements Items{
 // NonConsumable class
 //=====================================================================
 class NonConsumables implements Items{
-	String name;
-	String description;
-	boolean pickUp;
-	String whenUsed;	// unique for each item, ex: Ball, when used,"You bounce the ball. It makes you happy."
+	private String name;
+	private String description;
+	private boolean pickUp;
+	private String whenUsed;	// unique for each item, ex: Ball, when used,"You bounce the ball. It makes you happy."
 
  	// Start of Telescoping Constructors
 	public NonConsumables(){
