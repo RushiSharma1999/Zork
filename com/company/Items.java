@@ -66,28 +66,30 @@ class Weapons implements Items {
 	public int getDamage(){return damage;}
 
 	public void setPickUp(boolean pickUp){this.pickUp = pickUp;} 	// setter function
-	public boolean canPickUp(){										// getter function
-		if(pickUp){
-			System.out.println("PICK UP " + name );
+	public boolean getPickUp(){return pickUp;}						// getter function
+
+	public boolean canPickUp(){										// interface function
+		if(getPickUp()){
+			System.out.println("PICK UP " + getName());
 		}
 		else{
-			System.out.println("Can NOT PICK UP " + name);
+			System.out.println("Can NOT PICK UP " + getName());
 		}
-		return pickUp;
+		return getPickUp();
 	}			
 
 	public void useItem(){				// Weapon's useItem() will attack and do damage to a valid target, this useItem didnt supply a target
-		System.out.println("ATTACK with " + name);
+		System.out.println("ATTACK with " + getName());
 		System.out.println("Nothing happened...");	
 		
 	}
 
 	// Overloaded useItem()				
-	public void useItem(Character target){	// attacking a specified Character
-		System.out.println("ATTACK " + target.getName() + " with " + name);
+	public void useItem(Characters target){	// attacking a specified Character
+		System.out.println("ATTACK " + target.getName() + " with " + getName());
 
 
-		int newHealth = (target.getHealth() - this.getDamage());
+		int newHealth = (target.getHealth() - getDamage());
 		target.setHealth(newHealth); 							// changes the Character's health
 
 		if(target.getHealth() <= 0)
@@ -99,13 +101,13 @@ class Weapons implements Items {
 			// **********************************************************************
 		}
 		else{
-			System.out.println(this.getDamage() + " damage done");
+			System.out.println(getDamage() + " damage done");
 		}
 		
 	}
 
 	public String toString(){  // toString function
-		String temp = ("A " + name + ". " + description +". Damage: " + damage);
+		String temp = ("A " + getName() + ". " + getDescription() +". Damage: " + getDamage());
 		return temp;
 	}
 
@@ -158,25 +160,27 @@ class Weapons implements Items {
  	public int getValue(){return value;}					// getter function
 
  	public void setPickUp(boolean pickUp){this.pickUp = pickUp;} // setter function
-	public boolean canPickUp(){									 // getter function
-		if(pickUp){
-			System.out.println("PICK UP " + name );
+ 	public boolean getPickUp(){return pickUp;}					 // getter function
+
+	public boolean canPickUp(){									 // interface function
+		if(getPickUp()){
+			System.out.println("PICK UP " + getName());
 		}
 		else{
-			System.out.println("Can NOT PICK UP " + name);
+			System.out.println("Can NOT PICK UP " + getName());
 		}
-		return pickUp;
+		return getPickUp();
 	}
 
 	public void useItem(){
-		System.out.println("Playing with the " + name );	
+		System.out.println("Playing with the " + getName());	
 		// ***************************************************************************
 		// treasure does not do anything besides increase the players score at the end 
 		// ***************************************************************************
 	}
 
 	public String toString(){		// toString method
-		String temp = ("A " + name + ". "  + description + ". Value: " + value);
+		String temp = ("A " + getName() + ". "  + getDescription() + ". Value: " + getValue());
 		return temp;
 	}
 
@@ -224,14 +228,16 @@ class Consumables implements Items{
  	public String getDescription(){return description;}								// getter function
 
  	public void setPickUp(boolean pickUp){this.pickUp = pickUp;} // setter function
-	public boolean canPickUp(){									 // getter function
-		if(pickUp){
-			System.out.println("PICK UP " + name );
+ 	public boolean getPickUp(){return pickUp;}					 // getter function
+
+	public boolean canPickUp(){									 // interface function
+		if(getPickUp()){
+			System.out.println("PICK UP " + getName() );
 		}
 		else{
-			System.out.println("Can NOT PICK UP " + name);
+			System.out.println("Can NOT PICK UP " + getName());
 		}
-		return pickUp;
+		return getPickUp();
 	}
 
 	public void setValue(int value){	// setter function
@@ -246,14 +252,24 @@ class Consumables implements Items{
 		System.out.println("Nothing happened...");
 	}
 
-	public void useItem(Character target){ // the target in this case is the Character that used the item
+	// Overloaded useItem()
+	public void useItem(Characters target){ // the target in this case is the Character that used the item
 		System.out.println("Used " + getName() + "."); //" It restores " + this.getValue() + " health.");
 
 		int newHealth = target.getHealth() + getValue(); 
+		if(newHealth > target.getMax_HEALTH()){
+			target.setHealth(target.getMax_HEALTH());	// setting the target's health to the max value it can be, there is no over healing
+		}
+		else{
+			target.setHealth(newHealth);
+			System.out.println("It restores " + getValue() + " health.");
+		}
+
+
 	}
 
-	public String toString(){	// toString unction
-		String temp = ("A " + name + ". " + description + ". Healing: " + value);
+	public String toString(){	// toString function
+		String temp = ("A " + getName() + ". " + getDescription() + ". Healing: " + getValue());
 		return temp;
 	}
 
@@ -300,14 +316,16 @@ class NonConsumables implements Items{
  	public String getDescription(){return description;}								// getter function
 
  	public void setPickUp(boolean pickUp){this.pickUp = pickUp;} // setter function
-	public boolean canPickUp(){									 // getter function
-		if(pickUp){
-			System.out.println("You PICK UP " + name );
+ 	public boolean getPickUp(){return pickUp;}					 // getter function
+
+	public boolean canPickUp(){									 // interface function
+		if(getPickUp()){
+			System.out.println("You PICK UP " + getName());
 		}
 		else{
-			System.out.println("You can NOT PICK UP " + name);
+			System.out.println("You can NOT PICK UP " + getName());
 		}
-		return pickUp;
+		return getPickUp();
 	}
 
 	public void setWhenUsed(String whenUsed){	// setter function
@@ -318,14 +336,14 @@ class NonConsumables implements Items{
 	}
 
 	public void useItem(){
-		System.out.println("You use " + name + ". " + whenUsed + "."); 
+		System.out.println("You use " + getName() + ". " + getWhenUsed() + "."); 
 		// **********************************************************************************
 		// Unsure if we should expand this? or allow using NonConsumables to do anything else 
 		// **********************************************************************************
 	}
 
 	public String toString(){	// toString function
-		String temp = ("A " + name + ". " + description + ".");
+		String temp = ("A " + getName() + ". " + getDescription() + ".");
 		return temp;
 	}
 

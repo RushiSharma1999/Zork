@@ -10,7 +10,6 @@ package com.company;
 import com.company.Items;
 import java.util.ArrayList;
 
-
 //=====================================================================
 // Characters class
 //=====================================================================
@@ -20,7 +19,7 @@ class Characters{
 	private final int SIZE = 10;
 	private int MAX_HEALTH;
 	private int health;
-	private ArrayList<Items> aItems = new ArrayList<Items>(SIZE);
+	ArrayList<Items> aItems = new ArrayList<Items>(10);
 
 	// Start of Telescoping Constructors
 	public Characters(){
@@ -88,8 +87,9 @@ class Characters{
 	public void getInventory(){		// prints out the player's inventory
 	int count = 0;
 		System.out.println("Inventory:");
-		for(Item someItem: aItems){
-			System.out.println("[" + count + "]" + " " + someItem.getName());
+		for(int i = 0; i < SIZE; ++i){
+			
+			System.out.println("[" + count + "]" + " " + aItems.get(i));
 			count++;
 		}
 	}
