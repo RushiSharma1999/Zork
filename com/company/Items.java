@@ -7,8 +7,7 @@
 //
 
 package com.company;
-
-import com.company.Characters;
+import com.company.*;
 
 
 //=====================================================================
@@ -18,6 +17,11 @@ interface Items {
 
 	public void useItem();					// each class will provide functionality
 	public boolean canPickUp();  			// returns true/false if the player can pick up this item
+
+	public String getName();
+	public void setName(String n);
+	public String getDescription();
+	public void setDescription(String d);
 }
 
 //=====================================================================
@@ -70,7 +74,7 @@ class Weapons implements Items {
 
 	public boolean canPickUp(){										// interface function
 		if(getPickUp()){
-			System.out.println("PICK UP " + getName());
+			System.out.println("Can PICK UP " + getName());
 		}
 		else{
 			System.out.println("Can NOT PICK UP " + getName());
@@ -164,7 +168,7 @@ class Weapons implements Items {
 
 	public boolean canPickUp(){									 // interface function
 		if(getPickUp()){
-			System.out.println("PICK UP " + getName());
+			System.out.println("Can PICK UP " + getName());
 		}
 		else{
 			System.out.println("Can NOT PICK UP " + getName());
@@ -232,7 +236,7 @@ class Consumables implements Items{
 
 	public boolean canPickUp(){									 // interface function
 		if(getPickUp()){
-			System.out.println("PICK UP " + getName() );
+			System.out.println("Can PICK UP " + getName() );
 		}
 		else{
 			System.out.println("Can NOT PICK UP " + getName());
@@ -257,8 +261,8 @@ class Consumables implements Items{
 		System.out.println("Used " + getName() + "."); //" It restores " + this.getValue() + " health.");
 
 		int newHealth = target.getHealth() + getValue(); 
-		if(newHealth > target.getMax_HEALTH()){
-			target.setHealth(target.getMax_HEALTH());	// setting the target's health to the max value it can be, there is no over healing
+		if(newHealth > target.getMAX_HEALTH()){
+			target.setHealth(target.getMAX_HEALTH());	// setting the target's health to the max value it can be, there is no over healing
 		}
 		else{
 			target.setHealth(newHealth);
@@ -320,10 +324,10 @@ class NonConsumables implements Items{
 
 	public boolean canPickUp(){									 // interface function
 		if(getPickUp()){
-			System.out.println("You PICK UP " + getName());
+			System.out.println("Can PICK UP " + getName());
 		}
 		else{
-			System.out.println("You can NOT PICK UP " + getName());
+			System.out.println("Can NOT PICK UP " + getName());
 		}
 		return getPickUp();
 	}
