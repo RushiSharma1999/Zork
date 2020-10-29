@@ -33,11 +33,35 @@ enum Direction {
 class Room {
     private String name;
     private String description;
-    // array of items
-    // array monsters
-    // main character?
+
+    
 
     private int north, south, west, east;
+
+    // Start of Telescoping Constructors
+    public Room(){
+        this("NO ROOM NAME");
+    }
+
+    public Room(String name){
+        this(name,"NO ROOM DESCRIPTION");
+    }
+
+    public Room(String name,String description){
+        this(name,description,Direction.noExit);
+    }
+
+    public Room(String name, String description,int N){
+        this(name,description,n,Direction.noExit);
+    }
+
+    public Room(String name, String description,int N, int S){
+        this(name,description,n,s,Direction.noExit);
+    }
+
+    public Room(String name,String description,int N, int S, int W){
+        this(name,description,n,s,w,Direction.noExit);
+    }
 
     public Room(String name, String description, int N, int S, int W, int E) {
         this.north = N;
@@ -45,6 +69,7 @@ class Room {
         this.west = W;
         this.east = E;
     }
+    // End of Telescoping Constructors
 
     public String getName() {           // getter function
         return name;
@@ -73,7 +98,6 @@ class Room {
     public int getS() {                 // getter function
         return south;
     }
-
     public void setS(int S) {           // setter function
         this.south = S;
     }
@@ -82,7 +106,6 @@ class Room {
     public int getE() {                 // getter function
         return east;
     }
-
     public void setE(int E) {           // setter function
         this.east = E;
     }
@@ -91,25 +114,52 @@ class Room {
     public int getW() {                 // getter function
         return west;
     }
-
-    void setW(int W) {                  // setter function
+    public void setW(int W) {           // setter function
         this.west = W;
     }
 
+    public String toString(){
+        String temp = (getName() + ". " + getDescription() + " .\n");
+        if(getN() >= 0){
+            temp += "There is an exit north\n";
+        }
+        if(getS() >= 0){
+            temp += "There is an exit south\n";
+        }
+        if(getE() >= 0){
+            temp += "There is an exit east\n";
+        }
+        if(getW() >= 0){
+            temp += "There is an exit west\n";
+        }
+
+        return temp;
 }
 
 //=====================================================================
-// Game class - for testing purposes
+// Game class 
 //=====================================================================
 class Game {
-    private Character character; // main character?
-    private ArrayList<room> map;
-    // need an Items arralist
+    private Character player;    // main character
+    private ArrayList<Room> map; // map of zork
+    // private int currentLoation;  // this is the index of the room the player is in?
+
 
     public Game() {
-        this.map = new ArrayList<room>();
+        this.map = new ArrayList<Room>();
         map.add(new Room("room0", "Test1", Direction.noExit, 2, Direction.noExit, 1));
         map.add(new Room("room1", "Test2", Direction.noExit, Direction.noExit, 0, Direction.noExit));
+        // From my understanding of the Room class, in each possible direction there is a number 
+        // and that number does not corresponse to the index of the Room it is attached too but simply a numbered
+        // connection. Such that, if you wanted to connect two Rooms, they must both share a numbered direction
+        // The two Rooms above are not connected.
+        // ex. of connected Rooms:
+        //                                      NORTH               SOUTH               EAST             WEST
+        //  map.add(new Room("room3", "Test3",  3,                  Direction.noExit, Direction.noExit, Direction.noExit));
+        //  map.add(new Room("room4", "Test4",  Direction.noExit,   3,                Direction.noExit, Direction.noExit));
+        // room4 is to the North of room3. 
+        // room3 is to the south of room4.
+        //
 
     }
 }
