@@ -7,8 +7,7 @@
 //
 
 package com.company;
-
-import com.company*;
+import com.company.*;
 
 
 //=====================================================================
@@ -16,23 +15,23 @@ import com.company*;
 //=====================================================================
 interface Items {
 
-	// public String getName();				// returns the name of an item
-	// public String getDescription();		// returns the description of an item
-
-	// ^^Removed from the interface^^
-
 	public void useItem();					// each class will provide functionality
 	public boolean canPickUp();  			// returns true/false if the player can pick up this item
+
+	public String getName();
+	public void setName(String n);
+	public String getDescription();
+	public void setDescription(String d);
 }
 
 //=====================================================================
 // Weapon class
 //=====================================================================
 class Weapons implements Items {
-	String name;
-	String description;
-	int damage;						
-	boolean pickUp;					
+	private String name;
+	private String description;
+	private int damage;						
+	private boolean pickUp;					
 
 
 	// Start of Telescoping Constructors
@@ -71,28 +70,48 @@ class Weapons implements Items {
 	public int getDamage(){return damage;}
 
 	public void setPickUp(boolean pickUp){this.pickUp = pickUp;} 	// setter function
-	public boolean canPickUp(){										// getter function
-		if(pickUp){
-			System.out.println("You PICK UP " + name );
+	public boolean getPickUp(){return pickUp;}						// getter function
+
+	public boolean canPickUp(){										// interface function
+		if(getPickUp()){
+			System.out.println("Can PICK UP " + getName());
 		}
 		else{
-			System.out.println("You can NOT PICK UP " + name);
+			System.out.println("Can NOT PICK UP " + getName());
 		}
-		return pickUp;
+		return getPickUp();
 	}			
 
-	public void useItem(){								// Weapon's useItem() will attack and do damage to a valid target
-		System.out.println("You ATTACK with " + name);	
-		// **********************************************************************************************
-		// Check if valid target
-		// If target is a Character, lower health/do damage
-		// else the attack does nothing? possible implement unique interactions ie: a axe breaks a door
-		// **********************************************************************************************
-		System.out.println("You did " + damage + " damage");	
+	public void useItem(){				// Weapon's useItem() will attack and do damage to a valid target, this useItem didnt supply a target
+		System.out.println("ATTACK with " + getName());
+		System.out.println("Nothing happened...");	
+		
+	}
+
+	// Overloaded useItem()				
+	public void useItem(Characters target){	// attacking a specified Character
+		System.out.println("ATTACK " + target.getName() + " with " + getName());
+
+
+		int newHealth = (target.getHealth() - getDamage());
+		target.setHealth(newHealth); 							// changes the Character's health
+
+		if(target.getHealth() <= 0)
+		{
+			System.out.println(target.getName() + " was killed");
+			target.setHealth(0);
+			// **********************************************************************
+			// we have to delete or remove the target from the room after its killed?
+			// **********************************************************************
+		}
+		else{
+			System.out.println(getDamage() + " damage done");
+		}
+		
 	}
 
 	public String toString(){  // toString function
-		String temp = ("A " + name + ". " + description +". Damage: " + damage);
+		String temp = ("A " + getName() + ". " + getDescription() +". Damage: " + getDamage());
 		return temp;
 	}
 
@@ -104,10 +123,10 @@ class Weapons implements Items {
 // Treasure class
 //=====================================================================
  class Treasures implements Items{
-	String name;
- 	String description;
- 	boolean pickUp;
- 	int value;
+	private String name;
+ 	private String description;
+ 	private boolean pickUp;
+ 	private int value;
 
 
  	// Start of Telescoping Constructors
@@ -145,25 +164,27 @@ class Weapons implements Items {
  	public int getValue(){return value;}					// getter function
 
  	public void setPickUp(boolean pickUp){this.pickUp = pickUp;} // setter function
-	public boolean canPickUp(){									 // getter function
-		if(pickUp){
-			System.out.println("You PICK UP " + name );
+ 	public boolean getPickUp(){return pickUp;}					 // getter function
+
+	public boolean canPickUp(){									 // interface function
+		if(getPickUp()){
+			System.out.println("Can PICK UP " + getName());
 		}
 		else{
-			System.out.println("You can NOT PICK UP " + name);
+			System.out.println("Can NOT PICK UP " + getName());
 		}
-		return pickUp;
+		return getPickUp();
 	}
 
 	public void useItem(){
-		System.out.println("You play with the " + name + " in your hands.");	
+		System.out.println("Playing with the " + getName());	
 		// ***************************************************************************
 		// treasure does not do anything besides increase the players score at the end 
 		// ***************************************************************************
 	}
 
 	public String toString(){		// toString method
-		String temp = ("A " + name + ". "  + description + ". Value: " + value);
+		String temp = ("A " + getName() + ". "  + getDescription() + ". Value: " + getValue());
 		return temp;
 	}
 
@@ -173,10 +194,10 @@ class Weapons implements Items {
 // Consumables class
 //=====================================================================
 class Consumables implements Items{
-	String name;
-	String description;
-	boolean pickUp;
-	int value;				// amount of health it restores 
+	private String name;
+	private String description;
+	private boolean pickUp;
+	private int value;				// amount of health it restores 
 
 
  	// Start of Telescoping Constructors
@@ -211,14 +232,16 @@ class Consumables implements Items{
  	public String getDescription(){return description;}								// getter function
 
  	public void setPickUp(boolean pickUp){this.pickUp = pickUp;} // setter function
-	public boolean canPickUp(){									 // getter function
-		if(pickUp){
-			System.out.println("You PICK UP " + name );
+ 	public boolean getPickUp(){return pickUp;}					 // getter function
+
+	public boolean canPickUp(){									 // interface function
+		if(getPickUp()){
+			System.out.println("Can PICK UP " + getName() );
 		}
 		else{
-			System.out.println("You can NOT PICK UP " + name);
+			System.out.println("Can NOT PICK UP " + getName());
 		}
-		return pickUp;
+		return getPickUp();
 	}
 
 	public void setValue(int value){	// setter function
@@ -228,15 +251,29 @@ class Consumables implements Items{
 		return value;
 	}
 
-	public void useItem(){
-		System.out.println("You use " + name + ". It restores " + value + " health.");
-		// ***************************************
-		// Need to implement the healing aspect!
-		// ***************************************
+	public void useItem(){				// if we do not provide a target/character to provide healing to
+		System.out.println("Used " + getName() + ".");
+		System.out.println("Nothing happened...");
 	}
 
-	public String toString(){	// toString unction
-		String temp = ("A " + name + ". " + description + ". Healing: " + value);
+	// Overloaded useItem()
+	public void useItem(Characters target){ // the target in this case is the Character that used the item
+		System.out.println("Used " + getName() + "."); //" It restores " + this.getValue() + " health.");
+
+		int newHealth = target.getHealth() + getValue(); 
+		if(newHealth > target.getMAX_HEALTH()){
+			target.setHealth(target.getMAX_HEALTH());	// setting the target's health to the max value it can be, there is no over healing
+		}
+		else{
+			target.setHealth(newHealth);
+			System.out.println("It restores " + getValue() + " health.");
+		}
+
+
+	}
+
+	public String toString(){	// toString function
+		String temp = ("A " + getName() + ". " + getDescription() + ". Healing: " + getValue());
 		return temp;
 	}
 
@@ -246,10 +283,10 @@ class Consumables implements Items{
 // NonConsumable class
 //=====================================================================
 class NonConsumables implements Items{
-	String name;
-	String description;
-	boolean pickUp;
-	String whenUsed;	// unique for each item, ex: Ball, when used,"You bounce the ball. It makes you happy."
+	private String name;
+	private String description;
+	private boolean pickUp;
+	private String whenUsed;	// unique for each item, ex: Ball, when used,"You bounce the ball. It makes you happy."
 
  	// Start of Telescoping Constructors
 	public NonConsumables(){
@@ -283,14 +320,16 @@ class NonConsumables implements Items{
  	public String getDescription(){return description;}								// getter function
 
  	public void setPickUp(boolean pickUp){this.pickUp = pickUp;} // setter function
-	public boolean canPickUp(){									 // getter function
-		if(pickUp){
-			System.out.println("You PICK UP " + name );
+ 	public boolean getPickUp(){return pickUp;}					 // getter function
+
+	public boolean canPickUp(){									 // interface function
+		if(getPickUp()){
+			System.out.println("Can PICK UP " + getName());
 		}
 		else{
-			System.out.println("You can NOT PICK UP " + name);
+			System.out.println("Can NOT PICK UP " + getName());
 		}
-		return pickUp;
+		return getPickUp();
 	}
 
 	public void setWhenUsed(String whenUsed){	// setter function
@@ -301,14 +340,14 @@ class NonConsumables implements Items{
 	}
 
 	public void useItem(){
-		System.out.println("You use " + name + ". " + whenUsed + "."); 
+		System.out.println("You use " + getName() + ". " + getWhenUsed() + "."); 
 		// **********************************************************************************
 		// Unsure if we should expand this? or allow using NonConsumables to do anything else 
 		// **********************************************************************************
 	}
 
 	public String toString(){	// toString function
-		String temp = ("A " + name + ". " + description + ".");
+		String temp = ("A " + getName() + ". " + getDescription() + ".");
 		return temp;
 	}
 
