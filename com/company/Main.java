@@ -52,6 +52,8 @@ public class Main{
 		// Need to test Character's functions/ interactions with Items, Rooms and attacking other Characters
 		// Need a combat system
 		// Need to draw a map
+		// If a Character's health hits zero - if enemy, delete them
+		// - if main player, end game, total up score from the value of all the treasures collected
 		// *************************************
 	}
 }
