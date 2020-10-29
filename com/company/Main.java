@@ -6,9 +6,8 @@
 //	DUE: 			October 30, 2020
 //
 
-// package com.company; // Main is part of the com.company package?
-
-import com.company.*;	// importing everything in the com.company package
+package com.company; // Main is part of the com.company package?
+import com.company.*;
 
 
 public class Main{
@@ -19,10 +18,12 @@ public class Main{
 		//	Testing
 		//
 		
-		Weapons sword1 = new Weapons("Wood sword","A flimsy wooden sword",5,true);
+		Weapons sword1 = new Weapons("Wood sword","A flimsy wooden sword",3,true);
 		Treasures coin = new Treasures("Gold coin","A single gold coin with a skull on one side",true,2);
 		Consumables waterJug = new Consumables("Water jug","A portable jug that has some water in it",true,4);
 		NonConsumables ball = new NonConsumables("Bouncy ball","A small ball that has a nice bounce to it",true,"It makes you happy");
+		Characters player = new Characters("Julia", "20 year old gamer, beginning skateboarder, and art enthusiast",20);
+
 
 		System.out.println(sword1);
 		sword1.canPickUp();
@@ -37,7 +38,14 @@ public class Main{
 		System.out.println("\n" + ball);
 		ball.useItem();
 
-		
+		System.out.println("\n" + player);
+		player.getInventory();
+		player.pickUp(sword1);
+		player.pickUp(coin);
+		player.pickUp(waterJug);
+		player.pickUp(ball);
+		player.getInventory();
+
 		
 
 	}
