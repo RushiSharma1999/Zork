@@ -15,15 +15,17 @@
 //
 
 
-//=====================================================================
-// Direction enum
-//=====================================================================
-enum Direction {
+//=========================================================================
+// Direction enum 
+//=========================================================================
+enum Direction { 
     NORTH, // 0
     SOUTH, // 1
     EAST,  // 2
     WEST;  // 3
-
+    // *****************************************************************
+    // - the only Direction we use is noExit, unsure if we need this ^^^
+    // *****************************************************************
     public static final int noExit = -1;
 };
 
@@ -34,6 +36,13 @@ class Room {
     private String name;
     private String description;
 
+    // **************************************************
+    // Rooms have Items, need an ArrayList of Items here
+    // **************************************************
+
+    // *********************************************************
+    // Rooms have monsters, need a Arraylist of Characters here
+    // *********************************************************
     
 
     private int north, south, west, east;
@@ -136,8 +145,8 @@ class Room {
         return temp;
 }
 
-    public boolean isConnected(Room otherRoom){ // this doesn't check what direction the room is connected to, only that the rooms are conencted
-        boolean found = false; // true if they connect
+    public boolean isConnected(Room otherRoom){ // this doesn't return what direction the rooms are connected to, only that the rooms are conencted
+        boolean found = false;                  // returns true if they are connected
 
         if(this.getN() == otherRoom.getN()){
             found = true;
@@ -155,21 +164,34 @@ class Room {
         return found;
     }
 
+    // *******************************************
+    // Need to implement adding Items to a room
+    // ------------------------------------------
+    // either just putting items into the room or
+    // the player drops an item
+    // *******************************************
+
+    // *******************************************
+    // Need to implement removing Items from a room
+    // -------------------------------------------
+    // ie: player picking up an Item
+    // *******************************************
 }
 
 //=====================================================================
 // Game class 
 //=====================================================================
 class Game {
-    private Character player;    // main character
-    private ArrayList<Room> map; // map of zork
-    // private int currentLoation;  // this is the index of the room the player is in?
+    private Character playerChar;       // main character
+    private ArrayList<Room> map;    // map of zork
+    private Room currentLoation;    // this is the Room the player is in
 
 
     public Game() {
         this.map = new ArrayList<Room>();
         map.add(new Room("room0", "Test1", Direction.noExit, 2, Direction.noExit, 1));
         map.add(new Room("room1", "Test2", Direction.noExit, Direction.noExit, 0, Direction.noExit));
+    }
         // From my understanding of the Room class, in each possible direction there is a number 
         // and that number does not corresponse to the index of the Room it is attached too but simply a numbered
         // connection. Such that, if you wanted to connect two Rooms, they must both share a numbered connection
@@ -181,6 +203,22 @@ class Game {
         // room4 is to the North of room3. 
         // room3 is to the south of room4.
         //
+        // we need to be careful with room connections, we can not have multiple room connections.
+        // what i mean is that if 3 rooms are all connected, they can not be connected like this: 
+        // room1: N = 1
+        // room2: S = 1
+        // room3: E = 1
+        // because it is unclear which room is connected to each.
+        // 
 
-    }
+    
+
+    // ********************************************************
+    // Need to add search function for finding connecting rooms
+    // --------------------------------------------------------
+    // go through array, compare each room to the current location
+    // with isConnected function. If a match is found, inform the
+    // player that they entered the next Room and update the currentLocation
+    // variable
+    // ********************************************************
 }
