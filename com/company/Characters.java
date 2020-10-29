@@ -18,6 +18,9 @@ import java.util.Scanner;
 class Characters{
 	Scanner scan = new Scanner(System.in);
 
+	// a character has a room
+	// setters and getters
+
 	private String name;
 	private String description;
 	private final int SIZE = 10;
