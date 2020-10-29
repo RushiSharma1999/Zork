@@ -1,5 +1,5 @@
 //
-//	AUTHORS:	 	Julia, Tran, and Rushi
+//  AUTHORS:        Julia and Tran
 //	CLASS: 			CPSC - 233j
 //	TEACHER:		Professor McCarthy
 //	TIME:			T-Th 8:00am-9:45am
@@ -81,18 +81,25 @@ class Characters{
 	// WE CAN ONLY DO THIS IF THE ITEM CAN BE PICKED UP 
 	// ***************************************************
 	public void pickUp(Items someItem){ 
-		if(aItems.isEmpty())	// if the array is empty, add an item
-		{
-			aItems.add(someItem);
-			System.out.println(someItem.getName() + " was picked up");
+
+		if(someItem.getPickUp()){
+
+			if(aItems.isEmpty())	// if the array is empty, add an item
+			{
+				aItems.add(someItem);
+				System.out.println(someItem.getName() + " was picked up");
+			}
+			else if(aItems.size() < SIZE ) // else, we have to check it is not full
+			{
+				aItems.add(someItem);
+				System.out.println(someItem.getName() + " was picked up");
+			}
+			else{
+				System.out.println("Inventory is full. Item was not picked up");
+			}
 		}
-		else if(aItems.size() < SIZE ) // else, we have to check it is not full
-		{
-			aItems.add(someItem);
-			System.out.println(someItem.getName() + " was picked up");
-		}
-		else{
-			System.out.println("Inventory is full. Item was not picked up");
+		else if(!someItem.getPickUp(){
+			System.out.println("Item can not be picked up");
 		}
 
 	}

@@ -1,5 +1,5 @@
 //
-//	AUTHORS:	 	Julia, Tran, and Rushi
+//  AUTHORS:        Julia and Tran
 //	CLASS: 			CPSC - 233j
 //	TEACHER:		Professor McCarthy
 //	TIME:			T-Th 8:00am-9:45am

@@ -1,5 +1,5 @@
 //
-//  AUTHORS:        Julia, Tran, and Rushi
+//  AUTHORS:        Julia and Tran
 //  CLASS:          CPSC - 233j
 //  TEACHER:        Professor McCarthy
 //  TIME:           T-Th 8:00am-9:45am
@@ -136,6 +136,27 @@ class Room {
         return temp;
 }
 
+    public boolean isConnected(Room otherRoom){ // this doesn't check what direction the room is connected to, only that the rooms are conencted
+        boolean found = false; // true if they connect
+
+        if(this.getN() == otherRoom.getN()){
+            found = true;
+        } 
+        else if (this.getS() == otherRoom.getS()){
+            found = true;
+        }
+        else if(this.getE() == otherRoom.getE()){
+            found = true;
+        }
+        else if(this.getW() == otherRoom.getW()){
+            found = true;
+        }
+
+        return found;
+    }
+
+}
+
 //=====================================================================
 // Game class 
 //=====================================================================
@@ -151,7 +172,7 @@ class Game {
         map.add(new Room("room1", "Test2", Direction.noExit, Direction.noExit, 0, Direction.noExit));
         // From my understanding of the Room class, in each possible direction there is a number 
         // and that number does not corresponse to the index of the Room it is attached too but simply a numbered
-        // connection. Such that, if you wanted to connect two Rooms, they must both share a numbered direction
+        // connection. Such that, if you wanted to connect two Rooms, they must both share a numbered connection
         // The two Rooms above are not connected.
         // ex. of connected Rooms:
         //                                      NORTH               SOUTH               EAST             WEST
