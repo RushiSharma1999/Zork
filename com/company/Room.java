@@ -210,7 +210,7 @@ class Game {
         // room3: E = 1
         // because it is unclear which room is connected to each.
         // 
-
+        // i do like how flexible the room connections are
     
 
     // ********************************************************

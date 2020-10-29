@@ -46,7 +46,12 @@ public class Main{
 		player.pickUp(ball);
 		player.getInventory();
 
-		
-
+		// *************************************
+		// Need to test Room's functions 
+		// Need to test Game's functions
+		// Need to test Character's functions/ interactions with Items, Rooms and attacking other Characters
+		// Need a combat system
+		// Need to draw a map
+		// *************************************
 	}
 }
