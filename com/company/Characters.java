@@ -76,6 +76,12 @@ class Characters{
 	public int getMAX_HEALTH(){			// getter function, returns the MAX_HEALTH value for this character
 		return MAX_HEALTH;
 	}
+	 public void setRoom(Room aRoom){
+            this.theRoom = aRoom;
+        }
+        public Room getRoom() {
+            return this.theRoom;
+        }
 
 	// ***************************************************
 	// WE CAN ONLY DO THIS IF THE ITEM CAN BE PICKED UP 
