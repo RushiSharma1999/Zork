@@ -192,6 +192,22 @@ class Game {
         map.add(new Room("room0", "Test1", Direction.noExit, 2, Direction.noExit, 1));
         map.add(new Room("room1", "Test2", Direction.noExit, Direction.noExit, 0, Direction.noExit));
     }
+     ArrayList getMap() {
+        return map;
+    }
+    void setMap(ArrayList<Room> theMap) {
+        map = theMap;
+    }
+    public Characters getPlayer() {
+        return playerChar;
+    }
+    public void setPlayer(Characters p) {
+        playerChar = p;
+    }
+     private void moveCharacterTo(Characters p, Room aRoom) 
+     {
+        p.setRoom(aRoom);
+    }
         // From my understanding of the Room class, in each possible direction there is a number 
         // and that number does not corresponse to the index of the Room it is attached too but simply a numbered
         // connection. Such that, if you wanted to connect two Rooms, they must both share a numbered connection
