@@ -44,7 +44,9 @@ class Room {
     // Rooms have monsters, need a Arraylist of Characters here
     // *********************************************************
     
-
+    // *********************************************************
+    // UP or DOWN directions? Maybe??
+    // *********************************************************
     private int north, south, west, east;
 
     // Start of Telescoping Constructors
@@ -127,7 +129,7 @@ class Room {
         this.west = W;
     }
 
-    public String toString(){
+    public String toString(){ // toString for the Rooms
         String temp = (getName() + ". " + getDescription() + " .\n");
         if(getN() >= 0){
             temp += "There is an exit north\n";
@@ -144,25 +146,28 @@ class Room {
 
         return temp;
 }
+ 
+    // *************************************************
+    // UNSURE IF THIS ACTUALLY HELPS, NEEDS TO BE REWORKED OR MOVED
+    // **************************************************
+    // public boolean isConnected(Room otherRoom){  // returns true if the current room is connected to the otherRoom
+    //     boolean found = false;                  
 
-    public boolean isConnected(Room otherRoom){ // this doesn't return what direction the rooms are connected to, only that the rooms are conencted
-        boolean found = false;                  // returns true if they are connected
+    //     if(this.getN() == otherRoom.getN() || this.getN() == otherRoom.getS() || this.getN() == other Room.getE() || this.getN() == otherRoom.getW()){
+    //         found = true;
+    //     } 
+    //     else if (this.getS() == otherRoom.getN() || this.getS() == otherRoom.getS() || this.getS() == other Room.getE() || this.getS() == otherRoom.getW()){
+    //         found = true;
+    //     }
+    //     else if(this.getE() == otherRoom.getN() || this.getE() == otherRoom.getS() || this.getE() == other Room.getE() || this.getE() == otherRoom.getW()){
+    //         found = true;
+    //     }
+    //     else if(this.getW() == otherRoom.getN() || this.getW() == otherRoom.getS() || this.getW() == other Room.getE() || this.getW() == otherRoom.getW()){
+    //         found = true;
+    //     }
 
-        if(this.getN() == otherRoom.getN()){
-            found = true;
-        } 
-        else if (this.getS() == otherRoom.getS()){
-            found = true;
-        }
-        else if(this.getE() == otherRoom.getE()){
-            found = true;
-        }
-        else if(this.getW() == otherRoom.getW()){
-            found = true;
-        }
-
-        return found;
-    }
+    //     return found;
+    // }
 
     // *******************************************
     // Need to implement adding Items to a room
@@ -182,36 +187,54 @@ class Room {
 // Game class 
 //=====================================================================
 class Game {
-    private Character playerChar;       // main character
+    private Character playerChar;   // main character
     private ArrayList<Room> map;    // map of zork
-    private Room currentLoation;    // this is the Room the player is in
 
 
     public Game() {
-        this.map = new ArrayList<Room>();
-        map.add(new Room("room0", "Test1", Direction.noExit, 2, Direction.noExit, 1));
-        map.add(new Room("room1", "Test2", Direction.noExit, Direction.noExit, 0, Direction.noExit));
+        playerChar = new Characters("Player","A scrawny character with tatterd clothes",20);
+        // ^^ main character
+
+        this.map = new ArrayList<Room>(); 
+                                     //      N        S       E       W     
+        map.add(new Room("Room1", "Starting Room", 1, Direction.noExit, Direction.noExit, Direction.noExit));
+        map.add(new Room("Room2", "no description", Direction.noExit, 1, 2, 7));
+        map.add(new Room("Room3", "no description",  Direction.noExit,3,Direction.noExit, 2));
+        map.add(new Room("Room4", "no description",  3,4,Direction.noExit, Direction.noExit));
+        map.add(new Room("Room5", "no description",  Direction.noExit,Direction.noExit,4, 5));
+        map.add(new Room("Room6", "no description",  6,5,Direction.noExit, Direction.noExit));
+        map.add(new Room("Room7", "no description",  Direction.noExit,6,7, 8));
+        map.add(new Room("Room8", "no description",  8,9,Direction.noExit, Direction.noExit));
+        map.add(new Room("Room9", "no description",  9,12,11,10));
+        map.add(new Room("Room10", "no description",  Direction.noExit,Direction.noExit,Direction.noExit,10));
+        map.add(new Room("Room11", "no description",  Direction.noExit,Direction.noExit,11, Direction.noExit));
+        map.add(new Room("Room12", "no description",  12,Direction.noExit,Direction.noExit, Direction.noExit));
+
     }
-     ArrayList getMap() {
+
+    public ArrayList getMap() {
         return map;
     }
+
     void setMap(ArrayList<Room> theMap) {
         map = theMap;
     }
+
     public Characters getPlayer() {
         return playerChar;
     }
+
     public void setPlayer(Characters p) {
         playerChar = p;
     }
-     private void moveCharacterTo(Characters p, Room aRoom) 
+
+    private void moveCharacterTo(Characters p, Room aRoom)
      {
         p.setRoom(aRoom);
     }
         // From my understanding of the Room class, in each possible direction there is a number 
         // and that number does not corresponse to the index of the Room it is attached too but simply a numbered
         // connection. Such that, if you wanted to connect two Rooms, they must both share a numbered connection
-        // The two Rooms above are not connected.
         // ex. of connected Rooms:
         //                                      NORTH               SOUTH               EAST             WEST
         //  map.add(new Room("room3", "Test3",  3,                  Direction.noExit, Direction.noExit, Direction.noExit));
@@ -229,12 +252,24 @@ class Game {
         // i do like how flexible the room connections are
     
 
+
+
     // ********************************************************
     // Need to add search function for finding connecting rooms
     // --------------------------------------------------------
-    // go through array, compare each room to the current location
-    // with isConnected function. If a match is found, inform the
-    // player that they entered the next Room and update the currentLocation
-    // variable
+    // given a VALID connection number (NOT -1)
+    // search the map to find that other room
+    // becareful to not accidentally match with the current room
+    // returns the found room
     // ********************************************************
+    // this is not checking for valid exits, need to do that before calling this method,
+    // ie: if currentRoom.getE() returns -1, that means there is no exit that way
+    // if there is no exit, DO NOT CALL THIS METHOD
+    // public Room findOtherRoom(int connection){
+    //     for(int i = 0; i< map.size(); ++i){
+
+    //     }
+
+    // }
+
 }

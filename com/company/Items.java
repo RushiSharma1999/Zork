@@ -98,10 +98,12 @@ class Weapons implements Items {
 
 		if(target.getHealth() <= 0)
 		{
-			System.out.println(target.getName() + " was killed");
 			target.setHealth(0);
+			System.out.println(target.getName() + " was killed");
 			// **********************************************************************
-			// we have to delete or remove the target from the room after its killed?
+			// THE ROOM MUST DELETE THE CHARACTER/TARGET
+			// IF THE TARGET WAS THE MAIN CHARACTER AND THEY DIE, THE GAME MUST
+			// END. THE PLAYER'S TREASURE MUST BE TALLIED UP TO FIGURE OUT THEIR SCORE
 			// **********************************************************************
 		}
 		else{
@@ -257,7 +259,7 @@ class Consumables implements Items{
 	}
 
 	// Overloaded useItem()
-	public void useItem(Characters target){ // the target in this case is the Character that used the item
+	public void useItem(Characters target){ // the target in this case is the Character in the (), allows for self healing and healing other characters
 		System.out.println("Used " + getName() + "."); //" It restores " + this.getValue() + " health.");
 
 		int newHealth = target.getHealth() + getValue(); 
@@ -266,10 +268,8 @@ class Consumables implements Items{
 		}
 		else{
 			target.setHealth(newHealth);
-			System.out.println("It restores " + getValue() + " health.");
+			System.out.println("It restores " + getValue() + " health. To " + target.getName());
 		}
-
-
 	}
 
 	public String toString(){	// toString function

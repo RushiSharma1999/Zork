@@ -18,14 +18,12 @@ import java.util.Scanner;
 class Characters{
 	Scanner scan = new Scanner(System.in);
 
-	// a character has a room
-	// setters and getters
-
+	private Room theRoom; // the Room the main character is in
 	private String name;
 	private String description;
 	private final int SIZE = 10;
-	private int MAX_HEALTH;
-	private int health;
+	private int MAX_HEALTH;	// max health a player can have
+	private int health; // current health
 	ArrayList<Items> aItems = new ArrayList<Items>(); // limiting Characters to only 10 items
 
 	// Start of Telescoping Constructors
@@ -40,11 +38,17 @@ class Characters{
 	public Characters(String name, String description){
 		this(name,description,0);
 	}
+
 	public Characters(String name,String description, int health){
+		this(name,description,health,new Room()); 					//*** unsure if this is works ***
+	}
+
+	public Characters(String name,String description, int health, Room theRoom){
 		this.name = name;
 		this.description = description;
 		this.health = health;
 		MAX_HEALTH = health;
+		this.theRoom = theRoom;
 	}
 	// End of Telescoping Constructors
 
@@ -76,26 +80,33 @@ class Characters{
 	public int getMAX_HEALTH(){			// getter function, returns the MAX_HEALTH value for this character
 		return MAX_HEALTH;
 	}
-	 public void setRoom(Room aRoom){
-            this.theRoom = aRoom;
-        }
-        public Room getRoom() {
-            return this.theRoom;
-        }
 
-	// ***************************************************
-	// WE CAN ONLY DO THIS IF THE ITEM CAN BE PICKED UP 
-	// ***************************************************
+	public void setRoom(Room aRoom){	// setter function
+        this.theRoom = aRoom;
+    }
+
+    public Room getRoom() {				// getter function
+        return this.theRoom;
+    }
+
+	
+    // *******************************************
+    // CHARACTERS NEED TO BE ABLE TO DROP ITEMS
+    // ----------------------------------------
+    // when a player drops an item, add it to the
+    // current room
+    // ******************************************
+
 	public void pickUp(Items someItem){ 
 
-		if(someItem.getPickUp()){
+		if(someItem.getPickUp()){ // if the Item can be picked up
 
 			if(aItems.isEmpty())	// if the array is empty, add an item
 			{
 				aItems.add(someItem);
 				System.out.println(someItem.getName() + " was picked up");
 			}
-			else if(aItems.size() < SIZE ) // else, we have to check it is not full
+			else if(aItems.size() < SIZE ) // else, we have to check if inventory is full
 			{
 				aItems.add(someItem);
 				System.out.println(someItem.getName() + " was picked up");
@@ -104,7 +115,7 @@ class Characters{
 				System.out.println("Inventory is full. Item was not picked up");
 			}
 		}
-		else if(!someItem.getPickUp(){
+		else if(!someItem.getPickUp(){ // if the item can not be picked up
 			System.out.println("Item can not be picked up");
 		}
 
@@ -115,8 +126,7 @@ class Characters{
 		if(!aItems.isEmpty()) // if the inventory has items
 		{
 			System.out.println("Inventory:");
-			for(int i = 0; i < aItems.size(); ++i){
-				
+			for(int i = 0; i < aItems.size(); ++i){				
 				System.out.println("[Index:" + i + "]" + " " + aItems.get(i));
 			}
 		}
@@ -147,8 +157,9 @@ class Characters{
 				}
 				else{ // valid index
 					temp = aItems.get(choice); 
+					temp.useItem();
 					// **********************************************************
-					// UNFINISHED
+					// THIS FUNCTIONALITY NEEDS TO BE TESTED
 					// **********************************************************
 				}
 			}
@@ -157,7 +168,7 @@ class Characters{
 	}
 
 
-	public String toString(){
+	public String toString(){ // toString function for Characters
 		String temp = (getName() + ". " + getDescription() + ". Health: " + getHealth());
 		return temp;
 	}
@@ -165,4 +176,4 @@ class Characters{
 
 
 
-}
+} // end of Characters
