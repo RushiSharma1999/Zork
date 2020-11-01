@@ -26,9 +26,6 @@ enum Direction {
     SOUTH, // 1
     EAST,  // 2
     WEST;  // 3
-    // *****************************************************************
-    // - the only Direction we use is noExit, unsure if we need this ^^^
-    // *****************************************************************
     public static final int noExit = -1;
 };
 
@@ -196,24 +193,26 @@ class Room {
     // }
 
     
-    // *******************************************
-    // Need to implement removing Items from a room
-    // -------------------------------------------
-    // ie: player picking up an Item
-    // *******************************************
+
 }
 
 //=====================================================================
 // Game class 
 //=====================================================================
 class Game {
-    private Characters playerChar;   // main character
+    private Characters playerChar;  // main character
     private ArrayList<Room> map;    // map of zork
+    private int score;              // the player's score
+    // ************************************************
+    // Everytime a player moves, increment a counter.
+    // We need to keep track of how many moves a player
+    // took in order to win
+    // ************************************************
 
 
     public Game() {
         playerChar = new Characters("Player","A scrawny character with tatterd clothes",30);
-        
+        score = 0;
         // ^^ main character
 
         this.map = new ArrayList<Room>(); 
@@ -262,6 +261,21 @@ class Game {
         Room targetRoom = map.get(roomIndex);
         targetRoom.addItems(someItem);
 
+    }
+
+    public void updateScore(){ // **** NEEDS TO BE TESTED **** 
+        ArrayList<Items> tempA = playerChar.getCharsInventory();
+        Items tempItem;
+        int tempScore = 0;
+        if(!tempA.isEmpty()){ // if the player's inventory is not empty
+            for(int i = 0; i < tempA.size(); ++i){
+                tempItem = tempA.get(i);
+                if(tempItem instanceof Treasures){
+                    tempScore += ((Treasures)tempItem).getValue(); // add up all the treasure items value
+                }
+            }
+         }
+        score = tempScore; // set the new score
     }
 
 

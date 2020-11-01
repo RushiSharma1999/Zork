@@ -90,6 +90,10 @@ class Characters{
     }
 
 
+    public ArrayList getCharsInventory(){// game uses this to calculate the players score
+    	return aItems;
+	}
+
     public void dropItem(){
     	int choice = -1;
     	Items temp;
