@@ -1,5 +1,5 @@
 //
-//  AUTHORS:        Julia, Tran and Rushi
+//  AUTHORS:        Julia and Tran
 //	CLASS: 			CPSC - 233j
 //	TEACHER:		Professor McCarthy
 //	TIME:			T-Th 8:00am-9:45am
@@ -97,7 +97,42 @@ class Characters{
     // current room
     // ******************************************
 
-    public void dropItem()
+    public void dropItem(){
+    	int choice = -1;
+    	Items temp;
+    	if(!aItems.isEmpty()){ // if the character's inventory is not empty
+    		while(choice < 0 || choice >= SIZE){ // while character's choice is invalid
+    			getInventory();
+
+    			System.out.println("Which item do you want to drop?");
+
+    			if(scan.hasNextInt()){ // if a valid int
+    				choice = scan.nextInt();
+    				if(choice > SIZE || choice < 0){ // invalid index
+						System.out.println("Please enter a valid index.");
+						choice = -1;
+					}
+					else{ // valid index
+						temp = aItems.get(choice); // gets the item the character wants to drop
+						theRoom.addItems(temp);    // adds the item to the room
+						aItems.remove(choice);	   // removes the item from the character's inventory
+						// **********************************************************
+						// THIS FUNCTIONALITY NEEDS TO BE TESTED
+						// **********************************************************
+					}
+    			}
+    			else{ // if not an int
+    				System.out.println("Please enter a valid int index of the item to be dropped");
+    				choice = -1;
+    			}
+    		}
+
+    	}
+    	else { // if the character does not have items
+    		System.out.println("No items to drop");
+    	}
+
+    }
 
 	public void pickUp(Items someItem){ 
 
@@ -117,7 +152,7 @@ class Characters{
 				System.out.println("Inventory is full. Item was not picked up");
 			}
 		}
-		else if(!someItem.getPickUp(){ // if the item can not be picked up
+		else if(!someItem.getPickUp()){ // if the item can not be picked up
 			System.out.println("Item can not be picked up");
 		}
 
@@ -141,30 +176,37 @@ class Characters{
 		int choice = -1;
 		Items temp;
 
-		while(choice < 0 || choice >= SIZE){ // the user's choice can not be -1 or >= 10, both are out of bounds
-			
-			getInventory();		// prints out the player's inventory, the player must decide which item to use by giving an index
+		if(!aItems.isEmpty()) // Will only run if the player has items to use
+		{
+			while(choice < 0 || choice >= SIZE){ // the user's choice can not be -1 or >= 10, both are out of bounds
+				
+				getInventory();		// prints out the player's inventory, the player must decide which item to use by giving an index
 
-			System.out.println("\nWhich item do you want to use?\nIndex: ");
+				System.out.println("\nWhich item do you want to use?\nIndex: ");
 
 
-			if(!scan.hasNextInt()){			// if the user does not enter an int value
-				System.out.println("Please enter an integer index of the item to be used.");
-				choice = -1;
-			}
-			else {	// if the user enters an int
-				choice = scan.nextInt();
-				if(choice > SIZE || choice < 0){ // invalid index
-					System.out.println("Please enter a valid index.");
+				if(!scan.hasNextInt()){			// if the user does not enter an int value
+					System.out.println("Please enter an integer index of the item to be used.");
+					choice = -1;
 				}
-				else{ // valid index
-					temp = aItems.get(choice); 
-					temp.useItem();
-					// **********************************************************
-					// THIS FUNCTIONALITY NEEDS TO BE TESTED
-					// **********************************************************
+				else {	// if the user enters an int
+					choice = scan.nextInt();
+					if(choice > SIZE || choice < 0){ // invalid index
+						System.out.println("Please enter a valid index.");
+						choice = -1;
+					}
+					else{ // valid index
+						temp = aItems.get(choice); 
+						temp.useItem();
+						// **********************************************************
+						// THIS FUNCTIONALITY NEEDS TO BE TESTED
+						// **********************************************************
+					}
 				}
 			}
+		}
+		else{
+			System.out.println("No items to use");
 		}
 
 	}

@@ -1,5 +1,5 @@
 //
-//  AUTHORS:        Julia, Tran and Rushi
+//  AUTHORS:        Julia and Tran
 //  CLASS:          CPSC - 233j
 //  TEACHER:        Professor McCarthy
 //  TIME:           T-Th 8:00am-9:45am
@@ -7,6 +7,7 @@
 //
 
 package com.company;
+import com.company.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

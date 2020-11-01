@@ -1,5 +1,5 @@
 //
-//  AUTHORS:        Julia, Tran and Rushi
+//  AUTHORS:        Julia and Tran
 //	CLASS: 			CPSC - 233j
 //	TEACHER:		Professor McCarthy
 //	TIME:			T-Th 8:00am-9:45am
@@ -17,7 +17,7 @@ interface Items {
 
 	public void useItem();					// each class will provide functionality
 	public boolean canPickUp();  			// returns true/false if the player can pick up this item
-
+	public boolean getPickUp();
 	public String getName();
 	public void setName(String n);
 	public String getDescription();

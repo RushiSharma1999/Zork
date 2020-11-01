@@ -1,11 +1,13 @@
 //
-//  AUTHORS:        Julia, Tran and Rushi
+//  AUTHORS:        Julia and Tran
 //  CLASS:          CPSC - 233j
 //  TEACHER:        Professor McCarthy
 //  TIME:           T-Th 8:00am-9:45am
 //  DUE:            November 1, 2020
 //
-
+package com.company;
+import com.company.*;
+import java.util.ArrayList;
 
 
 //
@@ -13,6 +15,7 @@
 // design a map - each room has items, characters
 // fighting system
 //
+
 
 
 //=========================================================================
@@ -37,15 +40,9 @@ class Room {
     private String description;
     private ArrayList<Items> aItemsRoom = new ArrayList<Items>(); // Items in a room
 
-    // *********************************************************
-    // Rooms have monsters, need a Arraylist of Characters here
-    // or monsters have a Room location
-    // *********************************************************
-    
-    // *********************************************************
-    // UP or DOWN directions? Maybe??
-    // *********************************************************
+    // we do not use up and down    
     private int north, south, west, east;
+    // private int up,down;
 
     // Start of Telescoping Constructors
     public Room(){
@@ -60,23 +57,25 @@ class Room {
         this(name,description,Direction.noExit);
     }
 
-    public Room(String name, String description,int N){
+    public Room(String name, String description,int n){
         this(name,description,n,Direction.noExit);
     }
 
-    public Room(String name, String description,int N, int S){
+    public Room(String name, String description,int n, int s){
         this(name,description,n,s,Direction.noExit);
     }
 
-    public Room(String name,String description,int N, int S, int W){
+    public Room(String name,String description,int n, int s, int w){
         this(name,description,n,s,w,Direction.noExit);
     }
 
-    public Room(String name, String description, int N, int S, int W, int E) {
-        this.north = N;
-        this.south = S;
-        this.west = W;
-        this.east = E;
+    public Room(String name, String description, int n, int s, int w, int e) {
+        this.north = n;
+        this.south = s;
+        this.west = w;
+        this.east = e;
+        // this.up = Direction.noExit;    // WE NEVER USE THIS
+        // this.down = Direction.notExit; // WE NEVER USE THIS
     }
     // End of Telescoping Constructors
 
@@ -145,7 +144,7 @@ class Room {
         return temp;
 }
 
-    public Arraylist getItems(){ // returns the arraylist of items in the room
+    public ArrayList getItems(){ // returns the arraylist of items in the room
         return aItemsRoom;
     }
 
@@ -190,13 +189,7 @@ class Room {
     //     return found;
     // }
 
-    // *******************************************
-    // Need to implement adding Items to a room
-    // ------------------------------------------
-    // either just putting items into the room or
-    // the player drops an item
-    // *******************************************
-
+    
     // *******************************************
     // Need to implement removing Items from a room
     // -------------------------------------------
@@ -208,7 +201,7 @@ class Room {
 // Game class 
 //=====================================================================
 class Game {
-    private Character playerChar;   // main character
+    private Characters playerChar;   // main character
     private ArrayList<Room> map;    // map of zork
 
 
@@ -233,26 +226,34 @@ class Game {
 
     }
 
-    public ArrayList getMap() {
+    public ArrayList getMap() {         // returns the map
         return map;
     }
 
-    void setMap(ArrayList<Room> theMap) {
+    void setMap(ArrayList<Room> theMap) { // sets the map 
         map = theMap;
     }
 
-    public Characters getPlayer() {
+    public Characters getPlayer() { // returns the player character
         return playerChar;
     }
 
-    public void setPlayer(Characters p) {
+    public void setPlayer(Characters p) {   // sets the player character
         playerChar = p;
     }
 
-    private void moveCharacterTo(Characters p, Room aRoom)
+    public void moveCharacterTo(Characters p, Room aRoom)  // moves character
      {
         p.setRoom(aRoom);
     }
+
+    public void addItemToRoom(int roomIndex,Items someItem){ // for adding items to a room
+        Room targetRoom = map.get(roomIndex);
+        targetRoom.addItems(someItem);
+
+    }
+
+
         // From my understanding of the Room class, in each possible direction there is a number 
         // and that number does not corresponse to the index of the Room it is attached too but simply a numbered
         // connection. Such that, if you wanted to connect two Rooms, they must both share a numbered connection
