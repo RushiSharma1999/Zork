@@ -31,19 +31,19 @@ class Commands{
         this(command,"north");
     }
 
-    public Characters(String command, String direction){
+    public Commands(String command, String direction){
         this(command, direction, "player1");
     }
 
-    public Characters(String command, String direction, String character){
+    public Commands(String command, String direction, String character){
         this(command, direction, character, "lantern");
     }
 
-    public Characters(String command, String direction, String character, String item){
+    public Commands(String command, String direction, String character, String item){
         this(command, direction, character, item, "dracula");
     }
 
-    public Characters(String command, String direction, String character, String item, String enemy){
+    public Commands(String command, String direction, String character, String item, String enemy){
         this(command, direction, character, item, enemy, "sprint");
     }
 
@@ -65,12 +65,38 @@ class Commands{
 			this.direction = "South";
 		if(direction.equals("north"))
 			this.direction = "North";
+		if(direction.equals("up"))
+		    this.direction = "Up";
+		if(direction.equals("down"))
+		    this.direction = "Down";
     }
 
-    //returns the command
+
+    public void setCommand(String command) {this.command = command;} //setter function
     public String getCommand() {
         return command;
+    } //getter function
+
+    public void setDirection(String direction) {this.direction = direction;} //setter function
+    public String getDirection() {
+        return direction;
+    } //getter function
+
+    public void setItem(String item) {this.item = item;} //setter function
+    public String getItem() {
+        return item;
+    } //getter function
+
+    public void setCommand(String command) {this.command = command;} //setter function
+    public String getCommand() {
+        return command;
+    } //getter function
+
+    //returns any unlisted commands
+    public ArrayList<String> getNonListedCommands() {
+        return getNonListedCommands();
     }
+}
 
     //checks if the command is valid
     public boolean isValid() {
@@ -83,19 +109,9 @@ class Commands{
         return !direction.equals("");
     }
 
-    //returns the direction
-    public String getDirection() {
-        return direction;
-    }
-
     //checks if the player has an item
     public boolean hasItem(){
         return !item.equals("");
-    }
-
-    //returns the item
-    public String getItem() {
-        return item;
     }
 
     //checks if there is an enemy
@@ -103,19 +119,10 @@ class Commands{
         return !enemy.equals("");
     }
 
-    //returns the enemy
-    public String getEnemy() {
-        return enemy;
-    }
-
     //checks if the user entered any unlisted commands
     public boolean hasNonListedCommand() {
         return nonListedCommands.size() > 0;
     }
 
-    //returns any unlisted commands
-    public ArrayList<String> getNonListedCommands() {
-        return getNonListedCommands();
-    }
-}
+
 }
