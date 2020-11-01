@@ -96,7 +96,7 @@ class Commands{
     public ArrayList<String> getNonListedCommands() {
         return getNonListedCommands();
     }
-}
+
 
     //checks if the command is valid
     public boolean isValid() {
