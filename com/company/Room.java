@@ -36,9 +36,6 @@ class Room {
     private String name;
     private String description;
     private ArrayList<Items> aItemsRoom = new ArrayList<Items>(); // Items in a room
-    // **************************************************
-    // Rooms have Items, need an ArrayList of Items here
-    // **************************************************
 
     // *********************************************************
     // Rooms have monsters, need a Arraylist of Characters here
