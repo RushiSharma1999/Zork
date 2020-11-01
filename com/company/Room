@@ -79,4 +79,101 @@ class Game {
         map.add(new room("room1", "Test2", Direction.noExit, Direction.noExit, 0, Direction.noExit));
 
     }
+        private void roomDetail(int roomNumber) {
+        String s;
+        if (roomNumber == Direction.noExit) {
+            s = "No exit!";
+        } else {https://github.com/RushiSharma1999/Zork/pulls
+            Room r = getPlayer().getRoom();
+            s = "You are in the " + r.getDescription();
+        }
+    }
+      ArrayList getMap() {
+        return map;
+    }
+
+    void setMap(ArrayList<Room> theMap) {
+        map = theMap;
+    }
+
+    public Characters getPlayer() {
+        return playerChar;
+    }
+
+    public void setPlayer(Characters p) {
+        playerChar = p;
+    }
+
+    private void moveCharacterTo(Characters p, Room aRoom) {
+        p.setRoom(aRoom);
+    }
+
+    public int moveCharacter(Direction dir) {
+        return moveTo(playerChar, dir);
+    }
+
+    int moveTo(Characters player, Direction dir) {
+        Room r = player.getRoom();
+
+        int exit;
+        switch (dir) {
+            case NORTH:
+                exit = r.getN();
+                break;
+            case SOUTH:
+                exit = r.getS();
+                break;
+            case EAST:
+                exit = r.getE();
+                break;
+            case WEST:
+                exit = r.getW();
+                break;
+            default:
+                exit = Direction.noExit; // noexit - stay in same room
+                break;
+        }
+        if (exit != Direction.noExit) {
+            moveCharacterTo(player, map.get(exit));
+        }
+
+        return exit;
+
+    }
+
+    private void walkN() {
+        updateRoom(moveCharacter(Direction.NORTH));
+    }
+    private void walkS() {
+        updateRoom(moveCharacter(Direction.NORTH));
+    }
+
+    private void walkW() {
+        updateRoom(moveCharacter(Direction.NORTH));
+    }
+
+    private void walkE() {
+        updateRoom(moveCharacter(Direction.NORTH));
+    }
+
+
+    private void look() // method for command look
+    {
+        System.out.print("You are in the " + getPlayer().getRoom().getDescription());
+    }
+    void updateRoom(int roomNumber) // update the room name and description if they entered a new room
+    {
+        // if roomNumber = NOEXIT, display a special message, otherwise
+        // display text (e.g. name and description of room)
+        String s;
+        if (roomNumber == Direction.noExit) {
+            s = "No Exit!";
+        } else {
+            Room r = getPlayer().getRoom();
+            s = "You are in "
+                    + r.getName() + ". " + r.getDescription();
+        }
+        System.out.println(s);
+    }
+
 }
