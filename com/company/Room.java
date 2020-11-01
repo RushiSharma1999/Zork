@@ -1,9 +1,9 @@
 //
-//  AUTHORS:        Julia and Tran
+//  AUTHORS:        Julia, Tran and Rushi
 //  CLASS:          CPSC - 233j
 //  TEACHER:        Professor McCarthy
 //  TIME:           T-Th 8:00am-9:45am
-//  DUE:            October 30, 2020
+//  DUE:            November 1, 2020
 //
 
 
@@ -35,13 +35,14 @@ enum Direction {
 class Room {
     private String name;
     private String description;
-
+    private ArrayList<Items> aItemsRoom = new ArrayList<Items>(); // Items in a room
     // **************************************************
     // Rooms have Items, need an ArrayList of Items here
     // **************************************************
 
     // *********************************************************
     // Rooms have monsters, need a Arraylist of Characters here
+    // or monsters have a Room location
     // *********************************************************
     
     // *********************************************************
@@ -146,6 +147,25 @@ class Room {
 
         return temp;
 }
+
+    public void getItems(){ // the list of Items a Character can pick up or interact with in a Room
+        if(!aItemsRoom.isEmpty()){ // if the room has items, list them out
+            System.out.println("Items in Room:");
+            for(int i = 0; i < aItemsRoom.size(); ++i){             
+                System.out.println("[Index:" + i + "]" + " " + aItemsRoom.get(i));
+            }
+        }
+        else{
+            System.out.println("There are no Items in the Room");
+        }
+    }
+
+    public void addItems(Items someItem){ // adding Items to a Room, if a user drops an Item, add it to the Room
+        aItemsRoom.add(someItem);
+    }
+
+
+
  
     // *************************************************
     // UNSURE IF THIS ACTUALLY HELPS, NEEDS TO BE REWORKED OR MOVED

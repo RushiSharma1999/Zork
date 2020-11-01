@@ -1,9 +1,9 @@
 //
-//  AUTHORS:        Julia and Tran
+//  AUTHORS:        Julia, Tran and Rushi
 //	CLASS: 			CPSC - 233j
 //	TEACHER:		Professor McCarthy
 //	TIME:			T-Th 8:00am-9:45am
-//	DUE: 			October 30, 2020
+//  DUE:            November 1, 2020
 //
 
 package com.company;
@@ -24,7 +24,7 @@ class Characters{
 	private final int SIZE = 10;
 	private int MAX_HEALTH;	// max health a player can have
 	private int health; // current health
-	ArrayList<Items> aItems = new ArrayList<Items>(); // limiting Characters to only 10 items
+	private ArrayList<Items> aItems = new ArrayList<Items>(); // limiting Characters to only 10 items
 
 	// Start of Telescoping Constructors
 	public Characters(){
@@ -96,6 +96,8 @@ class Characters{
     // when a player drops an item, add it to the
     // current room
     // ******************************************
+
+    public void dropItem()
 
 	public void pickUp(Items someItem){ 
 
