@@ -15,6 +15,110 @@ import com.company.*;
 class Commands{
 
     private String command;
+    private String secondCommand;
+    private String thirdCommand;
+    private String fourthCommand;  //this is the character the player chooses to play as
+    // this is so we can add more commands later and don't have to worry about the type of command while testing
+    ArrayList<String> nonListedCommands = new ArrayList<String>();
+
+    // telescoping Constructors
+    public Commands(){
+        this("No command entered");
+    }
+
+    public Commands(String firstCommand){
+        this(command,"north");
+    }
+
+    public Commands(String firstCommand, String secondCommand){
+        this(command, secondCommand, "player1");
+    }
+
+    public Commands(String firstCommand, String secondCommand, String thirdCommand){
+        this(command, secondCommand, thirdCommand, "lantern");
+    }
+
+    public Commands(String firstCommand, String secondCommand, String thirdCommand, String fourthCommand){
+        this(command, secondCommand, thirdCommand, fourthCommand, "dracula");
+    }
+
+    public Commands(String firstCommand, String secondCommand, String thirdCommand, String fourthCommand, ArrayList<String> nonListedCommands){
+        this(command, secondCommand, thirdCommand, fourthCommand, "sprint");
+    }
+
+
+    public Commands(String firstCommand, String secondCommand, String thirdCommand, String fourthCommand, ArrayList<String> nonListedCommands){
+        this.command = firstCommand;
+        this.secondCommand = secondCommand;
+        this.thirdCommand = thirdCommand;
+        this.fourthCommand = fourthCommand;
+        this.nonListedCommands = nonListedCommands;
+
+        //more code will be added here after creation of CommandsList
+    }
+
+    public void setCommand(String command) {this.command = command;} //setter function
+    public String getCommand() {
+        return command;
+    } //getter function
+
+    public void setSecondCommand(String secondCommand) {this.secondCommand = secondCommand;} //setter function
+    public String getSecondCommand() {
+        return secondCommand;
+    } //getter function
+
+    public void setThirdCommand(String thirdCommand) {this.thirdCommand = thirdCommand;} //setter function
+    public String getThirdCommand() {
+        return thirdCommand;
+    } //getter function
+
+    public void setFourthCommand(String fourthCommand) {this.fourthCommand = fourthCommand;} //setter function
+    public String getFourthCommand() {
+        return fourthCommand;
+    } //getter function
+
+    //returns any unlisted commands
+    public ArrayList<String> getNonListedCommands() {
+        return getNonListedCommands();
+    }
+
+
+    //checks if the command is valid
+    public boolean isValid() {
+        //more code to come
+        return (command == null);
+    }
+
+    //checks if the direction is provided
+    public boolean hasSecondCommand() {
+        return !secondCommand.equals("");
+    }
+
+    //checks if the player has an item
+    public boolean hasThirdCommand(){
+        return !thirdCommand.equals("");
+    }
+
+    //checks if there is an enemy
+    public boolean hasFourthCommand() {
+        return !fourthCommand.equals("");
+    }
+
+    //checks if the user entered any unlisted commands
+    public boolean hasNonListedCommand() {
+        return nonListedCommands.size() > 0;
+    }
+
+
+}
+
+/*
+
+
+// Commands class
+class Commands{
+
+    private String command;
     private String item;
     private String direction;
     private String character;  //this is the character the player chooses to play as
@@ -126,3 +230,5 @@ class Commands{
 
 
 }
+
+ */
