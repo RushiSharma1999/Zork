@@ -89,26 +89,19 @@ class Characters{
         return this.theRoom;
     }
 
-	
-    // *******************************************
-    // CHARACTERS NEED TO BE ABLE TO DROP ITEMS
-    // ----------------------------------------
-    // when a player drops an item, add it to the
-    // current room
-    // ******************************************
 
     public void dropItem(){
     	int choice = -1;
     	Items temp;
     	if(!aItems.isEmpty()){ // if the character's inventory is not empty
-    		while(choice < 0 || choice >= SIZE){ // while character's choice is invalid
+    		while(choice < 0 || choice >= aItems.size()){ // while character's choice is invalid
     			getInventory();
 
-    			System.out.println("Which item do you want to drop?");
+    			System.out.print("Which item do you want to drop?\nIndex: ");
 
-    			if(scan.hasNextInt()){ // if a valid int
+    			if(scan.hasNextInt()){ // if a int
     				choice = scan.nextInt();
-    				if(choice > SIZE || choice < 0){ // invalid index
+    				if(choice >= aItems.size() || choice < 0){ // invalid index
 						System.out.println("Please enter a valid index.");
 						choice = -1;
 					}
@@ -116,6 +109,7 @@ class Characters{
 						temp = aItems.get(choice); // gets the item the character wants to drop
 						theRoom.addItems(temp);    // adds the item to the room
 						aItems.remove(choice);	   // removes the item from the character's inventory
+						return; // TO BREAK OUT 
 						// **********************************************************
 						// THIS FUNCTIONALITY NEEDS TO BE TESTED
 						// **********************************************************
@@ -134,13 +128,18 @@ class Characters{
 
     }
 
+
+    // *************************************************
+    // This does not remove an item from the room once it was picked up
+    // could lead to duplication of item, BECAREFUL 
+    // *************************************************
 	public void pickUp(Items someItem){ 
 
 		if(someItem.getPickUp()){ // if the Item can be picked up
 
 			if(aItems.isEmpty())	// if the array is empty, add an item
 			{
-				aItems.add(someItem);
+				aItems.add(someItem); 
 				System.out.println(someItem.getName() + " was picked up");
 			}
 			else if(aItems.size() < SIZE ) // else, we have to check if inventory is full
@@ -178,11 +177,11 @@ class Characters{
 
 		if(!aItems.isEmpty()) // Will only run if the player has items to use
 		{
-			while(choice < 0 || choice >= SIZE){ // the user's choice can not be -1 or >= 10, both are out of bounds
+			while(choice < 0 || choice >= aItems.size()){ // the user's choice can not be -1 or >= 10, both are out of bounds
 				
 				getInventory();		// prints out the player's inventory, the player must decide which item to use by giving an index
 
-				System.out.println("\nWhich item do you want to use?\nIndex: ");
+				System.out.print("\nWhich item do you want to use?\nIndex: ");
 
 
 				if(!scan.hasNextInt()){			// if the user does not enter an int value
@@ -191,13 +190,20 @@ class Characters{
 				}
 				else {	// if the user enters an int
 					choice = scan.nextInt();
-					if(choice > SIZE || choice < 0){ // invalid index
+					if(choice >= aItems.size() || choice < 0){ // invalid index
 						System.out.println("Please enter a valid index.");
 						choice = -1;
 					}
 					else{ // valid index
-						temp = aItems.get(choice); 
-						temp.useItem();
+						temp = aItems.get(choice);
+						if(temp instanceof Consumables){ // CHECKING OBJECT TYPE ********** Some cool stuff ************
+							((Consumables)temp).useItem(this); // should pass the Characters. OBJECT CASTING
+						} 
+						else{
+							temp.useItem();
+
+						}
+						return; // TO BREAK OUT
 						// **********************************************************
 						// THIS FUNCTIONALITY NEEDS TO BE TESTED
 						// **********************************************************

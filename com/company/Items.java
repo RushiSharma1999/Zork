@@ -18,6 +18,7 @@ interface Items {
 	public void useItem();					// each class will provide functionality
 	public boolean canPickUp();  			// returns true/false if the player can pick up this item
 	public boolean getPickUp();
+
 	public String getName();
 	public void setName(String n);
 	public String getDescription();
@@ -259,12 +260,13 @@ class Consumables implements Items{
 	}
 
 	// Overloaded useItem()
-	public void useItem(Characters target){ // the target in this case is the Character in the (), allows for self healing and healing other characters
+	public void useItem(Characters target){ // the target in this case is the Character in the (), allows for healing other characters
 		System.out.println("Used " + getName() + "."); //" It restores " + this.getValue() + " health.");
 
 		int newHealth = target.getHealth() + getValue(); 
 		if(newHealth > target.getMAX_HEALTH()){
 			target.setHealth(target.getMAX_HEALTH());	// setting the target's health to the max value it can be, there is no over healing
+			System.out.println("Health is at max! Health: " + target.getHealth());
 		}
 		else{
 			target.setHealth(newHealth);

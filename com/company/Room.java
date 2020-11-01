@@ -70,6 +70,9 @@ class Room {
     }
 
     public Room(String name, String description, int n, int s, int w, int e) {
+        this.name = name;
+        this.description = description;
+
         this.north = n;
         this.south = s;
         this.west = w;
@@ -127,7 +130,7 @@ class Room {
     }
 
     public String toString(){ // toString for the Rooms
-        String temp = (getName() + ". " + getDescription() + " .\n");
+        String temp = (getName() + ". " + getDescription() + ".\n");
         if(getN() >= 0){
             temp += "There is an exit north\n";
         }
@@ -140,12 +143,13 @@ class Room {
         if(getW() >= 0){
             temp += "There is an exit west\n";
         }
-
+        printItems(); // will print out the items in the room before the description and name of a room
         return temp;
 }
 
-    public ArrayList getItems(){ // returns the arraylist of items in the room
-        return aItemsRoom;
+    // ***************** UNSURE ***********************
+    public Items getItems(int itemIndex){ // returns a specific item??
+        return aItemsRoom.get(itemIndex);
     }
 
     public void printItems(){ // the list of Items a Character can pick up or interact with in a Room
@@ -164,7 +168,9 @@ class Room {
         aItemsRoom.add(someItem);
     }
 
-
+    public void removeItems(int index){
+        aItemsRoom.remove(index); // removes an item from a room IE: When a character takes an item from a room
+    }
 
  
     // *************************************************
@@ -206,7 +212,8 @@ class Game {
 
 
     public Game() {
-        playerChar = new Characters("Player","A scrawny character with tatterd clothes",20);
+        playerChar = new Characters("Player","A scrawny character with tatterd clothes",30);
+        
         // ^^ main character
 
         this.map = new ArrayList<Room>(); 
@@ -223,6 +230,10 @@ class Game {
         map.add(new Room("Room10", "no description",  Direction.noExit,Direction.noExit,Direction.noExit,10));
         map.add(new Room("Room11", "no description",  Direction.noExit,Direction.noExit,11, Direction.noExit));
         map.add(new Room("Room12", "no description",  12,Direction.noExit,Direction.noExit, Direction.noExit));
+
+        playerChar.setRoom(map.get(0)); // sets the player's location to the starting room
+
+
 
     }
 
