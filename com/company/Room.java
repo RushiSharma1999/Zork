@@ -148,7 +148,11 @@ class Room {
         return temp;
 }
 
-    public void getItems(){ // the list of Items a Character can pick up or interact with in a Room
+    public Arraylist getItems(){ // returns the arraylist of items in the room
+        return aItemsRoom;
+    }
+
+    public void printItems(){ // the list of Items a Character can pick up or interact with in a Room
         if(!aItemsRoom.isEmpty()){ // if the room has items, list them out
             System.out.println("Items in Room:");
             for(int i = 0; i < aItemsRoom.size(); ++i){             
