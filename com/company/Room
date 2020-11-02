@@ -72,7 +72,8 @@ class room {
 class Game {
     private Character character;
     private ArrayList<room> map;
-
+    List<String> commands = new ArrayList<>(Arrays.asList("look", "n", "s", "w", "e"));
+    List<String> items = new ArrayList<>(Arrays.asList("sword", "ring", "potion"));
     public Game() {
         this.map = new ArrayList<room>();
         map.add(new room("room0", "Test1", Direction.noExit, 2, Direction.noExit, 1));
