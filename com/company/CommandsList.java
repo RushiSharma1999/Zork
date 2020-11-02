@@ -7,8 +7,10 @@
 //
 
 package com.company;
+import java.io.PrintStream;
 import java.util.*;
 import com.company.*;
+
 
 //commands list class
 class CommandsList
@@ -32,11 +34,24 @@ class CommandsList
 
     public static PrintStream so = System.out;
 
-   //Constructor - initialise the command words.
+    //Constructor - initialise the command words.
    public CommandsList()
     {
         // nothing to do at the moment...
     }
+
+    //the idea is to create an object of the other class and use these functions for the if-else statements below as per the received commands
+    private Items item = new Item ( );
+
+    public void useItem() {
+       item.useItem();
+    }
+
+    public void grabItem() {
+        item.grabItem();
+    }
+
+
 
     public void commandOperations(String command) {
         Scanner sc= new Scanner(System.in); //System.in is a standard input stream
@@ -47,6 +62,17 @@ class CommandsList
         for (int i = 0; i < commands.length; i++)
         {
             String arr = commands[i];
+
+            boolean validCommand(String arr)
+            {
+                 if(arr.equals(aString))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
             for (int j = 0; j < directionCommands.length; j++) {
                 if (directionCommands[j] == arr)
                 {
@@ -73,28 +99,32 @@ class CommandsList
             for (int k = 0; k < actionCommands.length; k++) {
                 if (actionCommands[k] == arr)
                 {
-                    if(arr.equals("go"))
+                    if(arr.equalsIgnoreCase("go"))
                         this.arr = "GO";
 
-                    else if(arr.equals("grab"))
-                        this.arr = "GRAB";
+                    else if(arr.equalsIgnoreCase("grab"))
+                    {
+                        grabItem();
+                    }
 
-                    else if(arr.equals("attack"))
+                    else if(arr.equalsIgnoreCase("attack"))
                         this.arr = "ATTACK";
 
-                    else if(arr.equals("unlock"))
+                    else if(arr.equalsIgnoreCase("unlock"))
                         this.arr = "UNLOCK";
 
-                    else if(arr.equals("drop"))
+                    else if(arr.equalsIgnoreCase("drop"))
                         this.arr = "DROP";
 
-                    else if(arr.equals("use"))
-                        this.arr = "USE";
+                    else if(arr.equalsIgnoreCase("use"))
+                    {
+                        useItem();
+                    }
 
-                    else if(arr.equals("equip"))
+                    else if(arr.equalsIgnoreCase("equip"))
                         this.arr = "EQUIP";
 
-                    else if(arr.equals("unequip"))
+                    else if(arr.equalsIgnoreCase("unequip"))
                         this.arr = "UNEQUIP";
                 }
             }
@@ -102,24 +132,26 @@ class CommandsList
             for (int l = 0; l < generalCommands.length; l++) {
                 if (generalCommands[l] == arr)
                 {
-                    if(arr.equals("quit"))
+                    if(arr.equalsIgnoreCase("quit"))
                         this.arr = "QUIT";
 
-                    else if(arr.equals("help"))
+                    else if(arr.equalsIgnoreCase("help"))
                         this.arr = "HELP";
 
-                    else if(arr.equals("check"))
+                    else if(arr.equalsIgnoreCase("check"))
                         this.arr = "CHECK";
 
-                    else if(arr.equals("view"))
-                        this.arr = "VIEW";
+                    else if(arr.equalsIgnoreCase("view"))
+                    {
+                        getInventory();
+                    }
                 }
             }
 
         }
 
     }
-
+/*
     //checks if a command is a string
     //might be redundant if we have similar methods in Commands class
     public boolean validCommand(String aString)
@@ -133,7 +165,7 @@ class CommandsList
         }
         return false;
     }
-
+*/
     //print all the commands
     public void printAll()
     {
@@ -171,7 +203,7 @@ class CommandsList
     }
 
     //print the general commands
-    public void printDirectionCommands(){
+    public void printGeneralCommands(){
         for(int i = 0; i < generalCommands.length; i++)
         {
             so.print(generalCommands[i] + "  ");
