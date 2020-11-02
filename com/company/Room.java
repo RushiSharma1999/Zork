@@ -91,7 +91,7 @@ class Room {
         return description;
     }
 
-    public void setDescription(String aDescription) {
+    public void setDescription(String aDescription) {  //setter function
         this.description = description;
     }
     public int getN() {                 // getter function  
@@ -127,7 +127,7 @@ class Room {
     }
 
     public String toString(){ // toString for the Rooms
-        String temp = (getName() + ". " + getDescription() + ".\n");
+        String temp = ("\n"+getName() + ". " + getDescription() + ".\n");
         if(getN() >= 0){
             temp += "There is an exit north\n";
         }
@@ -209,10 +209,38 @@ class Game {
 
 
     public Game() {
-        playerChar = new Characters("Player","A scrawny character with tatterd clothes",30);
+        playerChar = new Characters("Player","A scrawny character with tatterd clothes",20);
         score = 0;
         // ^^ main character
 
+        // ITEMS START
+        Weapons wSword = new Weapons("Wood sword","A flimsy wooden sword",3,true);
+        Consumables waterJug = new Consumables("Water jug","A portable jug that has some water in it",true,5);
+        Treasures gCoin = new Treasures("Gold coin","A single gold coin with a skull on one side",true,3);
+        Weapons sSword = new Weapons("Steel sword","A solid blade with a sharp edge",8,true);
+        Treasures rRuby = new Treasures("Red ruby","A shiny red ruby",true,5);
+        NonConsumables ball = new NonConsumables("Bouncy ball","A small ball that has a nice bounce to it",true,"It makes you happy");
+        NonConsumables candle = new NonConsumables("Wax candle","A thin wax candle with a burnt end",true,"You stare at it");
+        NonConsumables skull = new NonConsumables("Human skull","A dusty skull",true,"You feel a chill go down your spine");
+        NonConsumables book = new NonConsumables("Worn book","A old and worn book with writing that you can not understand",true,"You stare at the letters");
+        Consumables breadLoaf = new Consumables("Bread loaf","A stale loaf of bread",true,2);
+        Treasures bSapphire  = new Treasures("Blue Sapphire ","A shiny blue sapphire ",true,5);
+        NonConsumables mClaw = new NonConsumables("Monster claw","A bloody claw torn from a monster",true,"You prick your finger on the tip");
+        Treasures bCoins = new Treasures("Bag of gold coins","A small bag filled with gold coins",true,30);
+        // Weapons for monsters
+        Weapons wPlank = new Weapons("Wooden plank","A large wooden plank covered in splinters",5);
+        Weapons donutHoler = new Weapons("Donut Holer", "A hollow metal pipe, perfect for making anything into a donut",3);
+        Weapons sFangs = new Weapons("Spider fangs","Poisonous fangs that pack a punch",20);
+        // ITEMS END
+
+        // CHARACTERS - MONSTERS - START
+        Characters monster1 = new Characters("Tall Ogre", "A lanky creature holding a large wooden plank",20);
+        Characters monster2 = new Characters("Gnome", "A small gnome with a donut holer",10);
+        Characters monster3 = new Characters("Spider","A smol spider with giant fangs",2);
+        // CHARACTERS - MONSTERS - END
+
+
+        // Creating the map
         this.map = new ArrayList<Room>(); 
                                      //      N        S       E       W     
         map.add(new Room("Room1", "Starting Room", 1, Direction.noExit, Direction.noExit, Direction.noExit));
@@ -228,11 +256,40 @@ class Game {
         map.add(new Room("Room11", "no description",  Direction.noExit,Direction.noExit,11, Direction.noExit));
         map.add(new Room("Room12", "no description",  12,Direction.noExit,Direction.noExit, Direction.noExit));
 
+        // setting locations for characters
         playerChar.setRoom(map.get(0)); // sets the player's location to the starting room
+        monster3.setRoom(map.get(3));   // sets the spider's location
+        monster2.setRoom(map.get(9));   // sets the gnome's location
+        monster1.setRoom(map.get(11));  // sets the tall orge's location
 
+        // setting locations for items
+        (map.get(0)).addItems(wSword);
+        (map.get(1)).addItems(waterJug);
+        (map.get(2)).addItems(gCoin);
+        (map.get(4)).addItems(sSword);
+        (map.get(5)).addItems(rRuby);
+        (map.get(6)).addItems(ball);
+        (map.get(7)).addItems(candle);
+        (map.get(7)).addItems(skull);
+        (map.get(7)).addItems(book);
+        (map.get(8)).addItems(breadLoaf);
+        (map.get(9)).addItems(bSapphire);
+        (map.get(11)).addItems(bCoins);
 
+        // giving monsters weapons
+        monster1.addWeapon(wPlank);
+        monster2.addWeapon(donutHoler);
+        monster3.addWeapon(sFangs);
 
+        // ***************************************
+        // START GAME HERE
+        // ***************************************
+
+        System.out.println(playerChar.getRoom());
+        
     }
+
+
 
     public ArrayList getMap() {         // returns the map
         return map;
@@ -261,6 +318,9 @@ class Game {
 
     }
 
+    // *********************************************************
+    // The compiler thinks this function uses unsafe operations
+    // *********************************************************
     public void updateScore(){ // **** NEEDS TO BE TESTED **** 
         ArrayList<Items> tempA = playerChar.getCharsInventory();
         Items tempItem;
@@ -305,7 +365,7 @@ class Game {
         Room currentRoom = playerChar.getRoom(); // gets the current location
 
         if(numberConnection == -1){ // -1 means no exit in this direction
-            System.out.println("No room connected to this exit")
+            System.out.println("No room connected to this exit");
         }
         else{   // if there is a exit in this direction
             for(int i = 0; i < map.size(); ++i){ // go through each room in the arraylist and find the connected room
@@ -318,8 +378,9 @@ class Game {
                 }                
             } 
         
-        return (new Room); // else return a blank room, this should never run!!!
 
+            }
+            return (new Room()); // else return a blank room, this should never run!!!
     }
 
 } // End of Room

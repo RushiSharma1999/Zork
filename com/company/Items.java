@@ -353,4 +353,4 @@ class NonConsumables implements Items{
 		return temp;
 	}
 
-}
+} // end of items

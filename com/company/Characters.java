@@ -90,6 +90,10 @@ class Characters{
     }
 
 
+    public void addWeapon(Weapons someWeapon){ // *** FOR GIVING WEAPONS TO MONSTERS ***
+    	aItems.add(someWeapon);
+    }
+
     public ArrayList getCharsInventory(){// game uses this to calculate the players score
     	return aItems;
 	}
