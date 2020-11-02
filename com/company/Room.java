@@ -170,27 +170,25 @@ class Room {
     }
 
  
-    // *************************************************
-    // UNSURE IF THIS ACTUALLY HELPS, NEEDS TO BE REWORKED OR MOVED
-    // **************************************************
-    // public boolean isConnected(Room otherRoom){  // returns true if the current room is connected to the otherRoom
-    //     boolean found = false;                  
+ 
+    public boolean isConnected(int numberConnection){  // returns true if the current room is connected to the given numberConnection
+        boolean found = false;                  
 
-    //     if(this.getN() == otherRoom.getN() || this.getN() == otherRoom.getS() || this.getN() == other Room.getE() || this.getN() == otherRoom.getW()){
-    //         found = true;
-    //     } 
-    //     else if (this.getS() == otherRoom.getN() || this.getS() == otherRoom.getS() || this.getS() == other Room.getE() || this.getS() == otherRoom.getW()){
-    //         found = true;
-    //     }
-    //     else if(this.getE() == otherRoom.getN() || this.getE() == otherRoom.getS() || this.getE() == other Room.getE() || this.getE() == otherRoom.getW()){
-    //         found = true;
-    //     }
-    //     else if(this.getW() == otherRoom.getN() || this.getW() == otherRoom.getS() || this.getW() == other Room.getE() || this.getW() == otherRoom.getW()){
-    //         found = true;
-    //     }
+        if(this.getN() == numberConnection){
+            found = true;
+        } 
+        else if (this.getS() == numberConnection){
+            found = true;
+        }
+        else if(this.getE() == numberConnection){
+            found = true;
+        }
+        else if(this.getW() == numberConnection){
+            found = true;
+        }
 
-    //     return found;
-    // }
+        return found;
+    }
 
     
 
@@ -301,22 +299,27 @@ class Game {
 
 
 
-    // ********************************************************
-    // Need to add search function for finding connecting rooms
-    // --------------------------------------------------------
-    // given a VALID connection number (NOT -1)
-    // search the map to find that other room
-    // becareful to not accidentally match with the current room
-    // returns the found room
-    // ********************************************************
-    // this is not checking for valid exits, need to do that before calling this method,
-    // ie: if currentRoom.getE() returns -1, that means there is no exit that way
-    // if there is no exit, DO NOT CALL THIS METHOD
-    // public Room findOtherRoom(int connection){
-    //     for(int i = 0; i< map.size(); ++i){
+  
+   
+    public Room findOtherRoom(int numberConnection){
+        Room currentRoom = playerChar.getRoom(); // gets the current location
 
-    //     }
+        if(numberConnection == -1){ // -1 means no exit in this direction
+            System.out.println("No room connected to this exit")
+        }
+        else{   // if there is a exit in this direction
+            for(int i = 0; i < map.size(); ++i){ // go through each room in the arraylist and find the connected room
 
-    // }
+                if(map.get(i) == currentRoom){
+                    // do nothing, because rooms can not loop back to themselves
+                }
+                else if(map.get(i).isConnected(numberConnection)){ 
+                    return map.get(i); // this means we found the room connection
+                }                
+            } 
+        
+        return (new Room); // else return a blank room, this should never run!!!
 
-}
+    }
+
+} // End of Room
