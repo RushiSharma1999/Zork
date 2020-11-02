@@ -155,6 +155,56 @@ class Game {
     private void walkE() {
         updateRoom(moveCharacter(Direction.NORTH));
     }
+    
+        public String Verb(String userInput) // Take in userinput convert it into an array to remove all the special character
+        {
+        String verb;
+        String message = "";
+        String str;
+        String[] splitUserInput = userInput.split("[!@#$%^&*() _=,./;']");
+        verb = splitUserInput[0];
+        if (!commands.contains(verb)) {
+            message = verb + " is not a known verb! ";
+        } else {
+            switch (verb) {
+                case "n":
+                    walkN();
+                    break;
+                case "s":
+                    walkS();
+                    break;
+                case "w":
+                    walkW();
+                    break;
+                case "e":
+                    walkE();
+                    break;
+                default:
+                    message = verb + "has not been implemented yet, please use a another command";
+                    break;
+            }
+        }
+        return message;
+    }
+
+    public String VerbAndNoun(String userInput) {
+   
+        String verb;
+        String noun;
+        String message = " ";
+        String[] splitUserInput = userInput.split("[!@#$%^&*() _=,./;']");
+        verb = splitUserInput[0];
+        noun = splitUserInput[1];
+        if (!commands.contains(verb)) {
+            message = verb + " is not a known verb! ";
+        }
+        if (!items.contains(noun)) {
+            message += (noun + " is not a known noun!");
+        }
+        message += " (not yet implemented)";
+        return message;
+    }
+
 
 
     private void look() // method for command look
