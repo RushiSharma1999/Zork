@@ -285,8 +285,11 @@ class Game {
         // START GAME HERE
         // ***************************************
 
-        System.out.println(playerChar.getRoom());
-        
+        // *** Testing if items were in rooms ****
+        // System.out.println(playerChar.getRoom());
+        // playerChar.setRoom(map.get(1));
+        // System.out.println(playerChar.getRoom());
+
     }
 
 
